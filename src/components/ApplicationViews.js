@@ -1,0 +1,23 @@
+import { Route, Redirect } from "react-router-dom"
+import React from "react"
+import Login from "./auth/Login"
+import Search from 
+
+
+const ApplicationViews = (props) => {
+    const loggedInUser = props.loggedInUser
+    const setAsUser = props.setAsUser
+
+    return (
+        <React.Fragment>
+            <Route path="/search" render={props => {
+                return <Search loggedInUser={loggedInUser} {...props} /> 
+            }}
+            />
+
+
+
+
+        </React.Fragment>
+    )
+}
