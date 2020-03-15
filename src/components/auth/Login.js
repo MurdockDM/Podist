@@ -5,7 +5,8 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import Textfield from "@material-ui/core/TextField"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
-import LockOutlinedIcon from 
+// import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+import Grid from "@material-ui/core/Grid"
 
 const Login = props => {
     const [credentials, setCredentials] = useState({email: "", username: ""})
@@ -33,7 +34,7 @@ const Login = props => {
                     <input onChange={handleFieldChange} type="text" id="userName" placeholder="UserName" required="" />
                     <label htmlFor="inputUserName">User Name</label>
                 </div>
-                <button type="submit">Login</button>
+                <Button onClick={handleLogin} type="submit">Login</Button>
             </fieldset>
         </form>
     );
