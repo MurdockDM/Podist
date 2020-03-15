@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom"
 import React from "react"
 import Login from "./auth/Login"
-import Search from 
+import Search from "./search/Search"
 
 
 const ApplicationViews = (props) => {
@@ -21,3 +21,5 @@ const ApplicationViews = (props) => {
         </React.Fragment>
     )
 }
+
+export default ApplicationViews
