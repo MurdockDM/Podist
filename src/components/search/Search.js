@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
 import GenreOptions from "./GenreOptions"
+import PodcastCard from "../Podcasts/PodcastCard"
 
 const Search = (props) => {
     const [searchTerms, setSearchTerms] = useState({searchedWords: "", genres: ""})
@@ -39,7 +40,7 @@ const Search = (props) => {
     const handleSearch = event => {
         event.preventDefault();
 
-        return ExternalAPIManager.getSearchWithOutGenresExplicit(searchTerms.searchedWords, "57")
+        return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords, "57")
         .then(searchedPodcasts => {
             setPodcastResults(searchedPodcasts.results)
         }).then(console.log(podcastResults))
@@ -68,6 +69,15 @@ const Search = (props) => {
                     </select>
                 </fieldset>
             </form>
+
+            <div className="searchedPodcasts__container">
+                {podcastResults.map((podcast, index) => 
+                    <PodcastCard 
+                        key={index}
+                        podcast={podcast}
+                        {...props} />)}
+
+            </div>
         </>
     )
 

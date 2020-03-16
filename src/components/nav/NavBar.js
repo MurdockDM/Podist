@@ -16,7 +16,13 @@ const NavBar = props => {
             <nav>
                 <ul>
                     <li>
+                        <NavLink className="navLink" to="/login">Login</NavLink>
+                    </li>
+                    <li>
                         <NavLink className="navLink" to="/home">Home</NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="navLink" to="/search">Search Page</NavLink>
                     </li>
                 </ul>
             </nav>
@@ -25,3 +31,5 @@ const NavBar = props => {
 
 
 }
+
+export default withRouter(NavBar);

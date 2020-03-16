@@ -11,8 +11,8 @@ var requestOptionsGet = {
 };
 
 export default {
-    getSearchWithOutGenresExplicit(searchTerms) {
-        return fetch(`https://listen-api.listennotes.com/api/v2/search?q=${searchTerms}&sort_by_date=0&type=episode&offset=0&len_min=0&published_after=0&language=English&safe_mode=0`, requestOptionsGet)
+    getSearchPodcastsWithOutGenresExplicit(searchTerms) {
+        return fetch(`https://listen-api.listennotes.com/api/v2/search?q=${searchTerms}&sort_by_date=0&type=podcast&offset=0&len_min=0&published_after=0&language=English&safe_mode=0`, requestOptionsGet)
         .then(response => response.json())
     },
     getGenres() {
