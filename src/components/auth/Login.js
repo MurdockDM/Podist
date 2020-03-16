@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({email: "", username: ""})
+    const [credentials, setCredentials] = useState({email: "", userName: ""})
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...credentials};

@@ -14,6 +14,10 @@ const ApplicationViews = (props) => {
                 return <Search loggedInUser={loggedInUser} {...props} /> 
             }}
             />
+            <Route path="/login" render={props => {
+                return <Login loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
 
 
 
