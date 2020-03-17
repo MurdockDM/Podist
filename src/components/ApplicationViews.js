@@ -19,7 +19,7 @@ const ApplicationViews = (props) => {
                 return <Login loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
-            <Route path="/:APIPodcastId/newlist" render={props => {
+            <Route path="/:PodcastId/newlist" render={props => {
                 return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />

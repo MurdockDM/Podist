@@ -20,7 +20,7 @@ export default {
         .then(resp => resp.json())
     },
     getPodcastByAPIId(id) {
-        return fetch(`https://listen-api.listennotes.com/api/v2/podcasts/${id}?sort=recent_first`)
+        return fetch(`https://listen-api.listennotes.com/api/v2/podcasts/${id}?sort=recent_first`, requestOptionsGet)
     }
 }
 
