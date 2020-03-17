@@ -2,6 +2,7 @@ import { Route, Redirect } from "react-router-dom"
 import React from "react"
 import Login from "./auth/Login"
 import Search from "./search/Search"
+import NewList from "./lists/NewList"
 
 
 const ApplicationViews = (props) => {
@@ -16,6 +17,10 @@ const ApplicationViews = (props) => {
             />
             <Route path="/login" render={props => {
                 return <Login loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
+            <Route path="/:APIPodcastId/newlist" render={props => {
+                return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
 
