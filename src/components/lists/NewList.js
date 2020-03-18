@@ -2,12 +2,12 @@ import React, { useState, useEffect} from "react"
 import PodcastThumbNailCard from "../Podcasts/PodcastThumbNailCard"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
 import LocalAPIManager from "../modules/LocalAPIManager"
+import Button from "@material-ui/core/Button"
 
 
 
 
 const NewList = props => {
-    console.log(props)
     const currentUser = sessionStorage.getItem("userInfo")
     const [podcastDetails, setPodcastDetails] = useState({
         id: "",
@@ -26,7 +26,9 @@ const NewList = props => {
         })
         }
         
-    
+    const checkLists = () => {
+        LocalAPIManager.getAllLists()
+    }
 
     const handleFieldChange = event => {
         const stateToChange = {...listDetails}
@@ -47,11 +49,12 @@ const NewList = props => {
                     <input type="text" onChange={handleFieldChange} id="title" placeholder="Title"></input>
                     <input type="textarea" onChange={handleFieldChange} id="comments" placeholder="Comments"></input>
                   </div>
+                  <Button onClick={} >Save New List</Button>
               </fieldset>
           </form>
 
           <div>
-          <h2>Adding this podcast to List</h2>
+          <h2>Podcast to be Added to List</h2>
           <div className="podcastCard__content">
                 <picture>
                     <img src={podcastDetails.imageLink} alt="Podcast Imagery"></img>

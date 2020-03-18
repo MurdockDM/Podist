@@ -43,7 +43,7 @@ const Search = (props) => {
         return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords, "57")
         .then(searchedPodcasts => {
             setPodcastResults(searchedPodcasts.results)
-        }).then(console.log(podcastResults))
+        })
     }
 
     useEffect(() => {

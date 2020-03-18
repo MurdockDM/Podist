@@ -26,28 +26,29 @@ const PodcastCard = props => {
         stateToChange.link = props.podcast.website
         stateToChange.imageLink = props.podcast.image
         setPodcastDetails(stateToChange)
+        setIsAvailable(true)
     }
 
-    const checkSavedPodcasts = () => {
-        const filteredArray = LocalAPIManager.getAllSavedPodcasts().then(response => {
-            response.filter(el => {
-               return el.APIId === podcastDetails.APIId
-            })
+    const checkStoredPodcasts = () => {
+        const checkedPodcasts = savedPodcastsInAPI.filter(podcast => {
+           return podcast.APIId === podcastDetails.APIId
         })
-        setSavedPodcastsInAPI(filteredArray)
-
+        if (checkedPodcasts.length === 0 && podcastDetails.APIId !== "") {
+            postToDatabase()
+        } else if (podcastDetails !== "" && checkedPodcasts.length >= 1) {alert("This podcast is already in the database")}
     }
-
+    
     const postToDatabase = () => {
         LocalAPIManager.postSinglePodcast(podcastDetails).then(response => {
             props.history.push(`/${response.id}/newlist`)})
     }
 
     useEffect(() => {
-        checkSavedPodcasts()
-        if (podcastDetails.APIId != "" && savedPodcastsInAPI.length === 0) {
-            postToDatabase()
-        }
+        LocalAPIManager.getAllSavedPodcasts()
+            .then(arrayOfPodcasts => {
+                setSavedPodcastsInAPI(arrayOfPodcasts)   
+        }).then(checkStoredPodcasts())
+        
     },[podcastDetails])
 
     return (
@@ -59,7 +60,7 @@ const PodcastCard = props => {
                 <h4>Title <span className="podcastCard__content__title">{props.podcast.title_original}</span></h4>
                 <p>Description: {props.podcast.description_original}</p>
                 <p>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></p>
-                <Button onClick={() =>  storeCardData()} color="secondary">Save Podcast to add to a list</Button>
+                <Button disabled={isAvailable} onClick={() =>  storeCardData()} color="secondary">Save Podcast to add to a list</Button>
                 <Button color="secondary">Add to Current List</Button>
             </div>
         </div>
