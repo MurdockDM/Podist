@@ -7,9 +7,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
 // import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Grid from "@material-ui/core/Grid"
+import LoginManager from "../modules/LoginManager"
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({email: "", username: ""})
+    const [credentials, setCredentials] = useState({id: "", email: "", userName: ""})
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...credentials};
@@ -19,8 +20,20 @@ const Login = props => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        props.setAsUser(credentials)
-        props.history.push("/search")
+        LoginManager.getUsers().then(arrayOfUsers => {
+            const user = arrayOfUsers.find(userObject => 
+                    userObject.email === credentials.email && 
+                    userObject.userName === credentials.userName)
+            if (user !== undefined) {
+                const stateToChange = {...credentials}
+                stateToChange.id = user.id
+                props.setAsUser(stateToChange)
+                props.history.push("/search")
+            }else {
+                alert("Not a valid user. Please register as a new user.")
+            }
+            
+        })
     }
 
     return (

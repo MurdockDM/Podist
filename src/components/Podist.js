@@ -15,7 +15,7 @@ const Podist = () => {
 
     return (
         <>
-          {/* <NavBar loggedInUser={loggedInUser} /> */}
+          <NavBar loggedInUser={loggedInUser} />
           <ApplicationViews loggedInUser={loggedInUser} setAsUser={setAsUser} />
         </>
       );
