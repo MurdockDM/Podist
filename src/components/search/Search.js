@@ -40,7 +40,7 @@ const Search = (props) => {
     const handleSearch = event => {
         event.preventDefault();
 
-        return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords, "57")
+        return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords)
         .then(searchedPodcasts => {
             setPodcastResults(searchedPodcasts.results)
         })

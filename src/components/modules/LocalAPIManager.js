@@ -21,6 +21,24 @@ export default {
     getSavedPodcastById(id) {
         return fetch(`${localBaseURL}/savedPodcasts/${id}`)
         .then(resp => resp.json())
+    },
+    postNewList(listObject) {
+        return fetch(`${localBaseURL}/lists`, {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listObject)
+        }).then(resp => resp.json())
+    },
+    postNewJoinList(listObject) {
+        return fetch(`${localBaseURL}/listsSavedPodcasts`, {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listObject)
+        }).then(resp => resp.json())
     }
 }
 

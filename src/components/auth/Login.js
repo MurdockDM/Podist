@@ -26,7 +26,7 @@ const Login = props => {
                     userObject.userName === credentials.userName)
             if (user !== undefined) {
                 const stateToChange = {...credentials}
-                stateToChange.id = user.id
+                stateToChange.id = JSON.stringify(user.id)
                 props.setAsUser(stateToChange)
                 props.history.push("/search")
             }else {

@@ -8,7 +8,8 @@ import Button from "@material-ui/core/Button"
 
 
 const NewList = props => {
-    const currentUser = sessionStorage.getItem("userInfo")
+    const currentUserId = JSON.parse(sessionStorage.getItem("userInfo"))
+    console.log(currentUserId)
     const [podcastDetails, setPodcastDetails] = useState({
         id: "",
         APIId: "",
@@ -17,21 +18,33 @@ const NewList = props => {
         link: "",
         imageLink: ""
     })
-    const [listDetails, setListDetails] = useState({title:"", comments:"", userId: currentUser.id })
+    const [listDetails, setListDetails] = useState({title:"", comments:"", userId: parseInt(currentUserId.id) })
+    const [joinTableList, setJoinTableList] = useState({listId: "", savedPodcastId: ""})
 
     const findPodcastDetails = () => {
         LocalAPIManager.getSavedPodcastById(props.match.params.PodcastId)
         .then(response => {
             setPodcastDetails(response)
         })
-        }
-        
-    const checkLists = () => {
-        LocalAPIManager.getAllLists()
     }
+
+    const postList = () => {
+        
+        LocalAPIManager.postNewList(listDetails)
+        .then(response => {
+            const stateToChange = {...joinTableList}
+            stateToChange.listId = response.id;
+            stateToChange.savedPodcastId = parseInt(props.match.params.PodcastId);
+            setJoinTableList(stateToChange);
+        })
+            // .then(setJoinTableList(stateToChange))
+            // .then(LocalAPIManager.postNewJoinList(joinTableList))
+    }
+        
 
     const handleFieldChange = event => {
         const stateToChange = {...listDetails}
+        stateToChange.userId = currentUserId.id
         stateToChange[event.target.id] = event.target.value;
         setListDetails(stateToChange)
     }
@@ -49,7 +62,7 @@ const NewList = props => {
                     <input type="text" onChange={handleFieldChange} id="title" placeholder="Title"></input>
                     <input type="textarea" onChange={handleFieldChange} id="comments" placeholder="Comments"></input>
                   </div>
-                  <Button onClick={} >Save New List</Button>
+                  <Button onClick={postList} >Save New List</Button>
               </fieldset>
           </form>
 

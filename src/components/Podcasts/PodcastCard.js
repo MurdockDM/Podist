@@ -40,7 +40,7 @@ const PodcastCard = props => {
     
     const postToDatabase = () => {
         LocalAPIManager.postSinglePodcast(podcastDetails).then(response => {
-            props.history.push(`/${response.id}/newlist`)})
+            props.history.push(`/search`)})
     }
 
     useEffect(() => {
