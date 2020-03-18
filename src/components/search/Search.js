@@ -8,9 +8,12 @@ import Typography from "@material-ui/core/Typography"
 // import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Grid from "@material-ui/core/Grid"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
+import GenreOptions from "./GenreOptions"
+import PodcastCard from "../Podcasts/PodcastCard"
 
 const Search = (props) => {
     const [searchTerms, setSearchTerms] = useState({searchedWords: "", genres: ""})
+    const [podcastResults, setPodcastResults] = useState([])
     const [genreOptions, setGenreOptions] = useState([])
     const [isAvailable, setIsAvailable] = useState(false)
 
@@ -29,18 +32,23 @@ const Search = (props) => {
     }
 
     const populateOptions = () => {
-        
+      return ExternalAPIManager.getGenres().then(genresFromAPI => {
+          setGenreOptions(genresFromAPI.genres)
+      })
     }
 
     const handleSearch = event => {
         event.preventDefault();
 
-        ExternalAPIManager.getSearchWithGenresExplicit(searchTerms.searchedWords, parseInt(searchTerms.genres) )
+        return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords, "57")
+        .then(searchedPodcasts => {
+            setPodcastResults(searchedPodcasts.results)
+        })
     }
 
     useEffect(() => {
-
-    })
+        populateOptions();
+    }, [])
 
     return (
         <>
@@ -48,8 +56,28 @@ const Search = (props) => {
                 <fieldset>
                     <input type="search" onChange={handleInputChange} id="searchedWords" />
                 </fieldset>
-                <button onClick={handleSearch}>Search Podcasts</button>
+                <Button variant="contained" color="primary" onClick={handleSearch}>Search Podcasts</Button>
             </form>
+            <form>
+                <fieldset>
+                    <select>
+                        {genreOptions.map(genre => 
+                            <GenreOptions 
+                                key={genre.id}
+                                genre={genre}
+                                {...props}/>)}
+                    </select>
+                </fieldset>
+            </form>
+
+            <div className="searchedPodcasts__container">
+                {podcastResults.map((podcast, index) => 
+                    <PodcastCard 
+                        key={index}
+                        podcast={podcast}
+                        {...props} />)}
+
+            </div>
         </>
     )
 
