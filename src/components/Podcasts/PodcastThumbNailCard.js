@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from "react"
 import Button from "@material-ui/core/Button"
-
+import LocalAPIManager from "../modules/LocalAPIManager"
+import "./PodcastThumbNailCard.css"
 
 const PodcastThumbNailCard = props => {
 
-    const [podcastDetails, setPodcastDetails] = useState({APIId: "",
+    const [podcastDetails, setPodcastDetails] = useState({
+        id: "",
+        APIId: "",
         title: "",
         description: "",
         link: "",
-        imageLink: ""})
+        imageLink: ""
+    })
 
     const [isAvailable, setIsAvailable] = useState(false)
 
 
-    const removeFromList = () => {
-
-    }    
-
 
     useEffect(() => {
-        
-    },[])
-        
+        LocalAPIManager.getSavedPodcastById(props.podcast.savedPodcastId)
+            .then(response => setPodcastDetails(response))
+    }, [])
+
     return (
-        <div className="podcastCard">
-            <div className="podcastCard__content">
+        <div className="podcastCard__thumbnail">
+            <div className="podcastCard__thumbnail__content">
                 <picture>
-                    <img src={props.podcast.image} alt="Podcast Imagery"></img>
+                    <img src={podcastDetails.imageLink} alt="Podcast Imagery"></img>
                 </picture>
-                <h4>Title <span className="podcastCard__content__title">{props.podcast.title_original}</span></h4>
-                <p>Description: {props.podcast.description_original}</p>
-                <p>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></p>
-                <Button disabled={isAvailable} onClick={() => removeFromList  } color="secondary">Remove Podcast From List</Button>
+                <h5>Title: <span className="podcastCard__thumbnail__content__title">{podcastDetails.title}</span></h5>
+                <p className="podcast__thumbnail__content__description">Description: {podcastDetails.description}</p>
+                <p>Website:<a target="_blank" href={podcastDetails.link}>Go to Podcast Website</a></p>
+                <Button disabled={isAvailable} onClick={() => props.removeFromList(props.podcast.id)} color="secondary">Remove Podcast From List</Button>
             </div>
         </div>
 

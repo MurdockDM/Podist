@@ -12,21 +12,26 @@ const Home = props => {
     const currentUserId = JSON.parse(sessionStorage.getItem("userInfo"))
 
     const filterListsForUser = () => {
-        const filteredLists = currentAllLists.filter(listObject => {
-            return listObject.list.userId === currentUserId.id
+        const filteredLists = currentAllLists.filter((listObject) => {
+            return listObject.userId === parseInt(currentUserId.id)
         })
         setUserOnlyLists(filteredLists)
-        console.log(filteredLists)
+    }
+
+    const removeFromList = (id) => {
+        LocalAPIManager.removePodcastFromListButNotDelete(id).then(() => {
+            LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
+        })
     }
 
     useEffect(() => {
-        LocalAPIManager.getAllLists().then(response => setCurrentAllLists(response))
+       LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
 
     }, [])
 
     useEffect(() => {
         filterListsForUser()
-    },[currentAllLists])
+    }, [currentAllLists])
 
     return (
         <>
@@ -35,6 +40,7 @@ const Home = props => {
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
                             key={listObject.id}
+                            removeFromList={removeFromList}
                             list={listObject}
                             {...props} />)}
 
