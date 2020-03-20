@@ -1,0 +1,23 @@
+*{
+    box-sizing: border-box;
+}
+
+.podcastCard__thumbnail{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    width: auto;
+}
+
+.podcastCard__thumbnail__content>picture {
+    display: flex;
+    justify-content: center;
+}
+
+.podcastCard__thumbnail{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 0.5rem;
+}

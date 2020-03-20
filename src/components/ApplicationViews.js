@@ -3,6 +3,7 @@ import React from "react"
 import Login from "./auth/Login"
 import Search from "./search/Search"
 import NewList from "./lists/NewList"
+import Home from "./Home/Home"
 
 
 const ApplicationViews = (props) => {
@@ -21,6 +22,10 @@ const ApplicationViews = (props) => {
             />
             <Route path="/:PodcastId/newlist" render={props => {
                 return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
+            <Route path="/home" render={props => {
+                return <Home loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
 

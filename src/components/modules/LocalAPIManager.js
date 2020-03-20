@@ -5,6 +5,10 @@ export default {
         return fetch(`${localBaseURL}/listsSavedPodcasts?_expand=list&_expand=savedPodcast`)
         .then(resp => resp.json())
     },
+    getOnlyBasicLists() {
+        return fetch(`${localBaseURL}/lists?_embed=listsSavedPodcasts`)
+        .then(resp => resp.json())
+    },
     postSinglePodcast(podcastObject) {
         return fetch(`${localBaseURL}/savedPodcasts`, {
             method:"POST",
@@ -21,6 +25,34 @@ export default {
     getSavedPodcastById(id) {
         return fetch(`${localBaseURL}/savedPodcasts/${id}`)
         .then(resp => resp.json())
+    },
+    postNewList(listObject) {
+        return fetch(`${localBaseURL}/lists`, {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listObject)
+        }).then(resp => resp.json())
+    },
+    postNewJoinList(listObject) {
+        return fetch(`${localBaseURL}/listsSavedPodcasts`, {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listObject)
+        }).then(resp => resp.json())
+    },
+    deletePodcastById(id) {
+        return fetch(`${localBaseURL}/savedPodcasts/${id}`, {
+            method: "DELETE"
+        }).then(resp => resp.json())
+    },
+    removePodcastFromListButNotDelete(id) {
+        return fetch(`${localBaseURL}/listsSavedPodcasts/${id}`, {
+            method:"DELETE"
+        }).then(resp => resp.json())
     }
 }
 
