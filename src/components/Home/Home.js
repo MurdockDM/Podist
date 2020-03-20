@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import LocalAPIManager from "../modules/LocalAPIManager"
 import CurrentList from "../lists/CurrentList"
-
+import HomePagePodcasts from "../Podcasts/HomePagePodcasts"
+import "./Home.css"
 
 const Home = props => {
 
@@ -26,7 +27,7 @@ const Home = props => {
 
     useEffect(() => {
        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
-
+       LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response)) 
     }, [])
 
     useEffect(() => {
@@ -52,7 +53,11 @@ const Home = props => {
             </div>
             <div>
                 <div className="podcastsAvailableContainer">
-
+                    {currentAvailablePodcasts.map(podcast => 
+                        <HomePagePodcasts 
+                          podcast ={podcast}
+                          key={podcast.id}
+                          {...props} />)}        
                 </div>
             </div>
 
