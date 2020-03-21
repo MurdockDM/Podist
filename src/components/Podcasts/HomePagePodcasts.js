@@ -46,9 +46,7 @@ export default function HomePagePodcasts(props) {
 
   }
 
-  const handleDeleteFromDatabase = () => {
-
-  }
+  
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -67,7 +65,7 @@ export default function HomePagePodcasts(props) {
       </CardContent>
       <CardActions>
         <Button onClick={handleAddToList} color="primary">Add to a List</Button>
-        <Button onClick={handleDeleteFromDatabase} color="secondary">Delete from database</Button>
+        <Button onClick={props.handleDeleteFromDatabase(podcastDetails.id)} color="secondary">Delete from database</Button>
       </CardActions>
     </Card>
   );

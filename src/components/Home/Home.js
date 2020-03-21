@@ -25,6 +25,12 @@ const Home = props => {
         })
     }
 
+    const handleDeleteFromDatabase = (id) => {
+        // LocalAPIManager.deletePodcastById(id).then(() => {
+        //     LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response))
+        // })
+    }
+
     useEffect(() => {
        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
        LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response)) 
@@ -56,6 +62,7 @@ const Home = props => {
                     {currentAvailablePodcasts.map(podcast => 
                         <HomePagePodcasts 
                           podcast ={podcast}
+                          handleDeleteFromDatabase={handleDeleteFromDatabase}
                           key={podcast.id}
                           {...props} />)}        
                 </div>
