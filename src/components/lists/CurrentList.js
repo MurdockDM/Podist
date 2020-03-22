@@ -7,40 +7,68 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 
 const CurrentList = props => {
 
-    const removeFromList = props.removeFromList
-
-    const [podcastsOnList, setPodcastsOnList] = useState([props.list.listsSavedPodcasts])
     
-    console.log(podcastsOnList)
-    const handleDeleteList = () => {
-
+    const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
+    const [currentAllList, setCurrentAllList] = useState([])
+    const [joinListsForPodcasts, setJoinListsForPodcasts] = useState([])
+    
+    
+    
+    
+    const removeFromList = (id) => {
+        LocalAPIManager.removePodcastFromListButNotDelete(id).then(() => {
+            LocalAPIManager.getSingleListById(props.list.id).then(resp => setCurrentAllList(resp))
+        })
+    }
+    
+    
+ 
+    const findPodcastsOnList = () => {
+        const filteredPodcasts = joinListsForPodcasts.filter(objectInArray => {
+            return objectInArray.listId === props.list.id
+        })
+        setPodcastsObjectsOnList(filteredPodcasts)
     }
 
+    useEffect(() => {
+        LocalAPIManager.getSingleListById(props.list.id)
+        .then(resp => setCurrentAllList(resp))
+        LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp) )
+    }, [])
+
+    useEffect(() => {
+        findPodcastsOnList()
+        
+    },[joinListsForPodcasts])
     
 
+    useEffect(()=> {
+        
+    },[currentAllList])
     
+
 
     return (
         <>
             <div className="homePage__currentList">
                 <div>
-                    <h4>{props.list.title}</h4>
+                    <h4>{currentAllList.title}</h4>
                 </div>
                 <div>
-                    <p>{props.list.comments}</p>
+                    <p>{currentAllList.comments}</p>
                 </div>
-                <Button onClick={handleDeleteList}>Delete this list </Button>
+                <Button >Delete this list </Button>
             </div>
 
             <div className="podcast__thumbnail__container">
-                {props.list.listsSavedPodcasts.map(podcast => 
-                    <PodcastThumbNailCard 
-                    removeFromList={removeFromList}
-                    key={podcast.savedPodcastId}
-                    podcast={podcast}
-                    {...props} />)}
-            
-            </div>       
+                {podcastsObjectsOnList.map(podcastListObject =>
+                    <PodcastThumbNailCard
+                        removeFromList={removeFromList}
+                        key={podcastListObject.id}
+                        podcast={podcastListObject}
+                        {...props} />)}
+
+            </div>
         </>
 
 

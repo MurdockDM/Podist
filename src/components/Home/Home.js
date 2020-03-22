@@ -18,27 +18,17 @@ const Home = props => {
         })
         setUserOnlyLists(filteredLists)
     }
-
-    const removeFromList = (id) => {
-        LocalAPIManager.removePodcastFromListButNotDelete(id).then(() => {
-            LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
-        })
-    }
-
-    const handleDeleteFromDatabase = (id) => {
-        // LocalAPIManager.deletePodcastById(id).then(() => {
-        //     LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response))
-        // })
-    }
+    
 
     useEffect(() => {
        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
        LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response)) 
-    }, [])
+    },[])
 
     useEffect(() => {
         filterListsForUser()
     }, [currentAllLists])
+
 
     return (
         <>
@@ -47,7 +37,6 @@ const Home = props => {
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
                             key={listObject.id}
-                            removeFromList={removeFromList}
                             list={listObject}
                             {...props} />)}
 
@@ -62,7 +51,6 @@ const Home = props => {
                     {currentAvailablePodcasts.map(podcast => 
                         <HomePagePodcasts 
                           podcast ={podcast}
-                          handleDeleteFromDatabase={handleDeleteFromDatabase}
                           key={podcast.id}
                           {...props} />)}        
                 </div>

@@ -4,6 +4,7 @@ import Login from "./auth/Login"
 import Search from "./search/Search"
 import NewList from "./lists/NewList"
 import Home from "./Home/Home"
+import PodcastEditToList from "./lists/PodcastEditToList"
 
 
 const ApplicationViews = (props) => {
@@ -20,8 +21,8 @@ const ApplicationViews = (props) => {
                 return <Login loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
-            <Route path="/:PodcastId/newlist" render={props => {
-                return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            <Route path="/:PodcastId/podcasttolist" render={props => {
+                return <PodcastEditToList PodcastId={parseInt(props.match.params.PodcastId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
             <Route path="/home" render={props => {

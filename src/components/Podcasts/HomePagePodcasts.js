@@ -29,6 +29,8 @@ const useStyles = makeStyles({
 export default function HomePagePodcasts(props) {
   const classes = useStyles();
 
+  const [isAvailable, setIsAvailable] = useState(false)
+
   const [podcastDetails, setPodcastDetails] = useState({
     id: "",
     APIId: "",
@@ -40,11 +42,10 @@ export default function HomePagePodcasts(props) {
 
   useEffect(()=> {
       setPodcastDetails(props.podcast)
-  })
+      setIsAvailable(true)
+  },[])
 
-  const handleAddToList = () => {
-
-  }
+  
 
   
 
@@ -64,8 +65,8 @@ export default function HomePagePodcasts(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleAddToList} color="primary">Add to a List</Button>
-        <Button onClick={props.handleDeleteFromDatabase(podcastDetails.id)} color="secondary">Delete from database</Button>
+        <Button onClick={() => {props.history.push(`/${podcastDetails.id}/podcasttolist`)}} color="primary">Add to a List</Button>
+        <Button disabled={isAvailable} color="secondary">Delete from database</Button>
       </CardActions>
     </Card>
   );

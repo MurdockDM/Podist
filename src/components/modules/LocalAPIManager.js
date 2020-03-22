@@ -5,6 +5,14 @@ export default {
         return fetch(`${localBaseURL}/listsSavedPodcasts?_expand=list&_expand=savedPodcast`)
         .then(resp => resp.json())
     },
+    getListsForPodcasts() {
+        return fetch(`${localBaseURL}/listsSavedPodcasts?_expand=list`)
+        .then(resp => resp.json())
+    },
+    getSingleListById(id) {
+        return fetch(`${localBaseURL}/lists/${id}?_embed=listsSavedPodcasts`)
+        .then(resp => resp.json())
+    },
     getOnlyBasicLists() {
         return fetch(`${localBaseURL}/lists?_embed=listsSavedPodcasts`)
         .then(resp => resp.json())
