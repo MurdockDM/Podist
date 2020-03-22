@@ -43,6 +43,7 @@ const Search = (props) => {
         return ExternalAPIManager.getSearchPodcastsWithOutGenresExplicit(searchTerms.searchedWords)
         .then(searchedPodcasts => {
             setPodcastResults(searchedPodcasts.results)
+            setIsAvailable(true)
         })
     }
 

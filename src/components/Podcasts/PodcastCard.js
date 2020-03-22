@@ -15,8 +15,9 @@ const PodcastCard = props => {
         imageLink: ""})
 
     const [savedPodcastsInAPI, setSavedPodcastsInAPI] = useState([])    
-    
-    const [isAvailable, setIsAvailable] = useState(false)    
+    const [podcastStoredId, setPodcastStoredId] = useState("")
+    const [isAvailable, setIsAvailable] = useState(false)
+    const [buttonOff , setButtonOff] = useState(true)    
 
     const storeCardData = () => {
         const stateToChange = {...podcastDetails}
@@ -40,6 +41,8 @@ const PodcastCard = props => {
     
     const postToDatabase = () => {
         LocalAPIManager.postSinglePodcast(podcastDetails).then(response => {
+            setPodcastStoredId(response.id)
+            setButtonOff(false)
             props.history.push(`/search`)})
     }
 
@@ -61,7 +64,7 @@ const PodcastCard = props => {
                 <p>Description: {props.podcast.description_original}</p>
                 <p>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></p>
                 <Button disabled={isAvailable} onClick={() =>  storeCardData()} color="secondary">Save Podcast to add to a list</Button>
-                <Button color="secondary">Add to Current List</Button>
+                <Button color="secondary" disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to Current List</Button>
             </div>
         </div>
     )

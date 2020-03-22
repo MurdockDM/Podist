@@ -13,7 +13,7 @@ const NavBar = props => {
     return (
         <header>
             <h1 className="site-title">Podist</h1>
-            <nav>
+            <nav className="navbar__links__container">
                 <ul>
                     <li>
                         <NavLink className="navLink" to="/login">Login</NavLink>
@@ -22,7 +22,7 @@ const NavBar = props => {
                         <NavLink className="navLink" to="/home">Home</NavLink>
                     </li>
                     <li>
-                        <NavLink className="navLink" to="/search">Search Page</NavLink>
+                        <NavLink className="navLink" to="/search">Search For New Podcasts</NavLink>
                     </li>
                 </ul>
             </nav>
