@@ -62,8 +62,10 @@ const CurrentList = props => {
                     <p>{currentAllList.comments}</p>
                 </div>
                 <div>
+                    <button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</button>
                     <button onClick={() => {deleteList(props.list.id)}} >Delete this list </button>
                 </div>
+                
             </div>
 
             <div className="podcast__thumbnail__container">
