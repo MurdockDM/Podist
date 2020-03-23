@@ -43,6 +43,15 @@ export default {
             body: JSON.stringify(listObject)
         }).then(resp => resp.json())
     },
+    postNewUser(userObject) {
+        return fetch(`${localBaseURL}/users`, {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObject)
+        }).then(resp => resp.json())
+    },
     postNewJoinList(listObject) {
         return fetch(`${localBaseURL}/listsSavedPodcasts`, {
             method:"POST",
@@ -54,6 +63,11 @@ export default {
     },
     deletePodcastById(id) {
         return fetch(`${localBaseURL}/savedPodcasts/${id}`, {
+            method: "DELETE"
+        }).then(resp => resp.json())
+    },
+    deleteMainListbyId(id) {
+        return fetch(`${localBaseURL}/lists/${id}`, {
             method: "DELETE"
         }).then(resp => resp.json())
     },

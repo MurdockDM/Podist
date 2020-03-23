@@ -59,12 +59,11 @@ const PodcastEditToList = props => {
 
     useEffect(() => {
         const filteredForPrevPodcast = userOnlyLists.map(listItem => {
-            console.log(listItem)
            return listItem.userId === currentUserId && listItem.listsSavedPodcasts.savedPodcastId === newJoinList.savedPodcastId
         })
         if (newJoinList.listId !== "" ) {
             LocalAPIManager.postNewJoinList(newJoinList)
-        } 
+        }
     },[newJoinList])
 
 

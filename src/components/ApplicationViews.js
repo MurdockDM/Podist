@@ -5,7 +5,7 @@ import Search from "./search/Search"
 import NewList from "./lists/NewList"
 import Home from "./Home/Home"
 import PodcastEditToList from "./lists/PodcastEditToList"
-
+import NewUserForm from "./auth/NewUserForm"
 
 const ApplicationViews = (props) => {
     const loggedInUser = props.loggedInUser
@@ -27,6 +27,10 @@ const ApplicationViews = (props) => {
             />
             <Route path="/home" render={props => {
                 return <Home loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
+            <Route path="/newuser" render={props => {
+                return <NewUserForm loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
 

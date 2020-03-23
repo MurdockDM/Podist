@@ -6,13 +6,17 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 
 
 const CurrentList = props => {
-
+    // const deleteList = props.deleteList
     
+    const deleteList = (id) => {
+        LocalAPIManager.deleteMainListbyId(id)
+    } 
+
     const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
     const [currentAllList, setCurrentAllList] = useState([])
     const [joinListsForPodcasts, setJoinListsForPodcasts] = useState([])
     
-    
+    const [isAvailable, setIsAvailable] = useState(true)
     
     
     const removeFromList = (id) => {
@@ -43,7 +47,7 @@ const CurrentList = props => {
     
 
     useEffect(()=> {
-        
+        setIsAvailable(false)
     },[currentAllList])
     
 
@@ -57,7 +61,9 @@ const CurrentList = props => {
                 <div>
                     <p>{currentAllList.comments}</p>
                 </div>
-                <Button >Delete this list </Button>
+                <div>
+                    <button onClick={() => {deleteList(props.list.id)}} >Delete this list </button>
+                </div>
             </div>
 
             <div className="podcast__thumbnail__container">
