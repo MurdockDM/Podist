@@ -7,9 +7,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Icon } from '@material-ui/core';
+import { boxShadow } from '@material-ui/system';
+
 
 const useStyles = makeStyles({
-  root: {
+  root: { 
     minWidth: 15,
     maxWidth: 200,
     margin: 10,
@@ -26,8 +28,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HomePagePodcasts(props) {
-  const classes = useStyles();
+const HomePagePodcasts = (props) => {
+    const podcast = props.podcast
+  
+const classes = useStyles();
 
   const [isAvailable, setIsAvailable] = useState(false)
 
@@ -41,7 +45,7 @@ export default function HomePagePodcasts(props) {
   })
 
   useEffect(()=> {
-      setPodcastDetails(props.podcast)
+      setPodcastDetails(podcast)
       setIsAvailable(true)
   },[])
 
@@ -50,7 +54,7 @@ export default function HomePagePodcasts(props) {
   
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant="outlined" >
       <CardContent>
         <CardMedia
             className={classes.media}
@@ -71,3 +75,5 @@ export default function HomePagePodcasts(props) {
     </Card>
   );
 }
+
+export default HomePagePodcasts

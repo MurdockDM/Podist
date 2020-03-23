@@ -18,6 +18,10 @@ const Home = props => {
         })
         setUserOnlyLists(filteredLists)
     }
+
+    const deleteList = (id) => {
+        LocalAPIManager.deleteMainListbyId(id).then(LocalAPIManager.getOnlyBasicLists().then(response=> setCurrentAllLists(response)))
+    } 
     
 
     useEffect(() => {
@@ -36,6 +40,7 @@ const Home = props => {
                 <div className="userListsContainer">
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
+                            deleteList={deleteList}
                             key={listObject.id}
                             list={listObject}
                             {...props} />)}
@@ -50,7 +55,7 @@ const Home = props => {
                 <div className="podcastsAvailableContainer">
                     {currentAvailablePodcasts.map(podcast => 
                         <HomePagePodcasts 
-                          podcast ={podcast}
+                          podcast={podcast}
                           key={podcast.id}
                           {...props} />)}        
                 </div>

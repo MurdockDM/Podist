@@ -8,12 +8,14 @@ import Typography from "@material-ui/core/Typography"
 // import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Grid from "@material-ui/core/Grid"
 import LoginManager from "../modules/LoginManager"
+import Link from "@material-ui/core/Link"
+
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({id: "", email: "", userName: ""})
+    const [credentials, setCredentials] = useState({ id: "", email: "", userName: "" })
 
     const handleFieldChange = (evt) => {
-        const stateToChange = { ...credentials};
+        const stateToChange = { ...credentials };
         stateToChange[evt.target.id] = evt.target.value;
         setCredentials(stateToChange);
     }
@@ -21,18 +23,18 @@ const Login = props => {
     const handleLogin = (e) => {
         e.preventDefault();
         LoginManager.getUsers().then(arrayOfUsers => {
-            const user = arrayOfUsers.find(userObject => 
-                    userObject.email === credentials.email && 
-                    userObject.userName === credentials.userName)
+            const user = arrayOfUsers.find(userObject =>
+                userObject.email === credentials.email &&
+                userObject.userName === credentials.userName)
             if (user !== undefined) {
-                const stateToChange = {...credentials}
+                const stateToChange = { ...credentials }
                 stateToChange.id = JSON.stringify(user.id)
                 props.setAsUser(stateToChange)
                 props.history.push("/search")
-            }else {
+            } else {
                 alert("Not a valid user. Please register as a new user.")
             }
-            
+
         })
     }
 
@@ -49,6 +51,9 @@ const Login = props => {
                 </div>
                 <Button onClick={handleLogin} type="submit">Login</Button>
             </fieldset>
+            <Link href={`/newuser`} >
+                Need to sign up for a new account?
+            </Link>
         </form>
     );
 };
