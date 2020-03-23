@@ -13,6 +13,10 @@ export default {
         return fetch(`${localBaseURL}/lists/${id}?_embed=listsSavedPodcasts`)
         .then(resp => resp.json())
     },
+    getSingleListByIdWithoutJoinTable(id) {
+        return fetch(`${localBaseURL}/lists/${id}`)
+        .then(resp => resp.json())
+    },
     getOnlyBasicLists() {
         return fetch(`${localBaseURL}/lists?_embed=listsSavedPodcasts`)
         .then(resp => resp.json())
@@ -75,7 +79,16 @@ export default {
         return fetch(`${localBaseURL}/listsSavedPodcasts/${id}`, {
             method:"DELETE"
         }).then(resp => resp.json())
-    }
+    },
+    updateList(listObject) {
+        return fetch(`${localBaseURL}/lists/${listObject.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(listObject)
+        }).then(data => data.json());
+      },
 }
 
 

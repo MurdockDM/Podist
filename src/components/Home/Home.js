@@ -3,6 +3,7 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 import CurrentList from "../lists/CurrentList"
 import HomePagePodcasts from "../Podcasts/HomePagePodcasts"
 import "./Home.css"
+import { Button } from "@material-ui/core"
 
 const Home = props => {
 
@@ -37,6 +38,10 @@ const Home = props => {
     return (
         <>
             <div>
+                <div>
+                    <Button onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
+                </div>
+
                 <div className="userListsContainer">
                     {userOnlyLists.map((listObject) =>
                         <CurrentList

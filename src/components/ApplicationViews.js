@@ -6,6 +6,7 @@ import NewList from "./lists/NewList"
 import Home from "./Home/Home"
 import PodcastEditToList from "./lists/PodcastEditToList"
 import NewUserForm from "./auth/NewUserForm"
+import EditList from "./lists/EditList"
 
 const ApplicationViews = (props) => {
     const loggedInUser = props.loggedInUser
@@ -31,6 +32,14 @@ const ApplicationViews = (props) => {
             />
             <Route path="/newuser" render={props => {
                 return <NewUserForm loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
+            <Route path="/newlist" render={props => {
+                return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            }}
+            />
+            <Route path="/:listId/editlist" render={props => {
+                return <EditList listId={parseInt(props.match.params.listId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
             }}
             />
 
