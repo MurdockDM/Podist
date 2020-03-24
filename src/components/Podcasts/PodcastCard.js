@@ -43,7 +43,7 @@ const PodcastCard = props => {
         LocalAPIManager.postSinglePodcast(podcastDetails).then(response => {
             setPodcastStoredId(response.id)
             setButtonOff(false)
-            props.history.push(`/search`)})
+        })
     }
 
     useEffect(() => {

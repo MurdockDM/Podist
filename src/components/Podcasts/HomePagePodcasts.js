@@ -57,6 +57,7 @@ const classes = useStyles();
     <Card className={classes.root} variant="outlined" >
       <CardContent>
         <CardMedia
+            src="image"
             className={classes.media}
             image={podcastDetails.imageLink}
             title="podcast imagery"

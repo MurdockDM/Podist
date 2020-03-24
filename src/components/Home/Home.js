@@ -31,6 +31,7 @@ const Home = props => {
     },[])
 
     useEffect(() => {
+        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
         filterListsForUser()
     }, [currentAllLists])
 

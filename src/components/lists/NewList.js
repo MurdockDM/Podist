@@ -22,7 +22,7 @@ const NewList = props => {
 
     const postNewList = () => {
         LocalAPIManager.postNewList(listDetails)
-        .then(setIsAvailable(true))
+        .then(setIsAvailable(true)).then(props.history.push('/home'))
     }
 
 
