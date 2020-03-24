@@ -10,6 +10,24 @@ import Grid from "@material-ui/core/Grid"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
 import GenreOptions from "./GenreOptions"
 import PodcastCard from "../Podcasts/PodcastCard"
+import Container from "@material-ui/core/Container"
+import { FormControl, makeStyles } from "@material-ui/core"
+
+    const useStyles = makeStyles(theme => ({
+        formcontrol: {
+            margin: them.spacing(1),
+            minWidth: 240,
+        },
+        selectEmpty: {
+            marginTop: theme,
+        }
+    }))
+
+
+
+
+
+
 
 const Search = (props) => {
     const [searchTerms, setSearchTerms] = useState({searchedWords: "", genres: ""})
@@ -52,14 +70,14 @@ const Search = (props) => {
     }, [])
 
     return (
-        <>
-            <form>
+        <Container component="main" maxWidth="lg">
+            <FormControl>
                 <fieldset>
                     <input type="search" onChange={handleInputChange} id="searchedWords" />
                 </fieldset>
                 <Button variant="contained" color="primary" onClick={handleSearch}>Search Podcasts</Button>
-            </form>
-            <form>
+            </FormControl>
+            <FormControl>
                 <fieldset>
                     <select>
                         {genreOptions.map(genre => 
@@ -69,7 +87,7 @@ const Search = (props) => {
                                 {...props}/>)}
                     </select>
                 </fieldset>
-            </form>
+            </FormControl>
 
             <div className="searchedPodcasts__container">
                 {podcastResults.map((podcast, index) => 
@@ -79,7 +97,7 @@ const Search = (props) => {
                         {...props} />)}
 
             </div>
-        </>
+        </Container>
     )
 
 }
