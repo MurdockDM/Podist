@@ -37,18 +37,32 @@ more easily recommend podcasts to their friends.
     $ npm install @material-ui/core
     ```
 
-7. Open a tab in terminal and change to the api directory then start the
+7. An API key must be obtained from the [ListenNotes
+   API](https://www.listennotes.com/api/). This key must then be put into a
+   specific file.
+   ```shell session
+   $ cd src/components/modules
+   $ touch ExternalAPIKey.js
+   ```
+   Place the following inside the ExternalAPIKey.js file
+   ```shell session
+   export default {
+   myAPIKeyTitle: "X-ListenAPI-Key",
+   myAPIKey: "Put your api key here"
+} 
+
+8. Open a tab in terminal and change to the api directory then start the
    json-server there
    ```shell session
    $ json-server -p 8088 -w database.json
    ```
 
-8. Then in a separate tab in the terminal initialize the app 
+9. Then in a separate tab in the terminal initialize the app 
     ```shell session
     $ npm start
     ```
 
-9. The application will require a login using email and a user name. This can be
+10. The application will require a login using email and a user name. This can be
    created on the Sign Up page found on the navbar.
 
 
