@@ -11,35 +11,44 @@ import EditList from "./lists/EditList"
 const ApplicationViews = (props) => {
     const loggedInUser = props.loggedInUser
     const setAsUser = props.setAsUser
+    const clearUser = props.clearUser
 
     return (
         <React.Fragment>
             <Route path="/search" render={props => {
-                return <Search loggedInUser={loggedInUser} {...props} /> 
+                return <Search loggedInUser={loggedInUser} {...props} />
             }}
             />
-            <Route path="/login" render={props => {
-                return <Login loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+            <Route exact path="/login" render={props => {
+                return <Login loggedInUser={loggedInUser} clearUser={clearUser} setAsUser={setAsUser} {...props} />
             }}
             />
             <Route path="/:PodcastId/podcasttolist" render={props => {
-                return <PodcastEditToList PodcastId={parseInt(props.match.params.PodcastId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+                if (loggedInUser) {
+                    return <PodcastEditToList PodcastId={parseInt(props.match.params.PodcastId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
+                } else {
+                    return <Redirect to='/login' />
+                }
             }}
             />
             <Route path="/home" render={props => {
-                return <Home loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+                if (loggedInUser) {
+                    return <Home loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
+                } else {
+                    return <Redirect to='/login' />
+                }
             }}
             />
             <Route path="/newuser" render={props => {
-                return <NewUserForm loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+                return <NewUserForm loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
             }}
             />
             <Route path="/newlist" render={props => {
-                return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+                return <NewList loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
             }}
             />
             <Route path="/:listId/editlist" render={props => {
-                return <EditList listId={parseInt(props.match.params.listId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} /> 
+                return <EditList listId={parseInt(props.match.params.listId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
             }}
             />
 

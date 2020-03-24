@@ -30,7 +30,7 @@ const Login = props => {
                 const stateToChange = { ...credentials }
                 stateToChange.id = JSON.stringify(user.id)
                 props.setAsUser(stateToChange)
-                props.history.push("/search")
+                props.history.push("/home")
             } else {
                 alert("Not a valid user. Please register as a new user.")
             }

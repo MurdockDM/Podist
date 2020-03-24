@@ -32,8 +32,8 @@ const EditList = (props) => {
               <h2>Edit the title or comments for the list</h2>
               <fieldset>
                   <div className="listInfo">  
-                    <input type="text" onChange={handleFieldChange} id="title" placeholder={currentListDetails.title}></input>
-                    <input type="textarea" onChange={handleFieldChange} id="comments" placeholder={currentListDetails.comments}></input>
+                    <input type="text" onChange={handleFieldChange} id="title" value={currentListDetails.title} ></input>
+                    <input type="textarea" onChange={handleFieldChange} id="comments" value={currentListDetails.comments}></input>
                   </div>
                   <Button disabled={isAvailable} onClick={()=> {postEditedList()}} >Save Edited List</Button>
               </fieldset>

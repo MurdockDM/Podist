@@ -13,10 +13,15 @@ const Podist = () => {
         setLoggedInUser(userAuthenticated())
     }
 
+    const clearUser = () => {
+      sessionStorage.removeItem("userInfo")
+      setLoggedInUser(userAuthenticated())
+    }
+  
     return (
         <>
-          <NavBar loggedInUser={loggedInUser} />
-          <ApplicationViews loggedInUser={loggedInUser} setAsUser={setAsUser} />
+          <NavBar loggedInUser={loggedInUser} clearUser={clearUser} />
+          <ApplicationViews loggedInUser={loggedInUser} clearUser={clearUser} setAsUser={setAsUser} />
         </>
       );
 

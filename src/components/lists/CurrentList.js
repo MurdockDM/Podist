@@ -47,6 +47,7 @@ const CurrentList = props => {
     
 
     useEffect(()=> {
+        LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp))
         setIsAvailable(false)
     },[currentAllList])
     
