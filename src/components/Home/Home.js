@@ -21,20 +21,25 @@ const Home = props => {
     }
 
     const deleteList = (id) => {
-        LocalAPIManager.deleteMainListbyId(id).then(LocalAPIManager.getOnlyBasicLists().then(response=> setCurrentAllLists(response)))
+        LocalAPIManager.deleteMainListbyId(id)
+        .then(LocalAPIManager.getOnlyBasicLists()
+        .then(response=> setCurrentAllLists(response)))
+        
     } 
     
 
     useEffect(() => {
        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
-       LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response)) 
+       LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response))
+       filterListsForUser() 
     },[])
 
     useEffect(() => {
-        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
+        
         filterListsForUser()
     }, [currentAllLists])
 
+    
 
     return (
         <>
