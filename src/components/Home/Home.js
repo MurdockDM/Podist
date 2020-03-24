@@ -16,27 +16,26 @@ const Home = props => {
     const filterListsForUser = () => {
         const filteredLists = currentAllLists.filter((listObject) => {
             return listObject.userId === parseInt(currentUserId.id)
-        })
-        setUserOnlyLists(filteredLists)
+        })    
+    setUserOnlyLists(filteredLists)
     }
 
     const deleteList = (id) => {
         LocalAPIManager.deleteMainListbyId(id)
-            .then(LocalAPIManager.getOnlyBasicLists()
-                .then(response => setCurrentAllLists(response)))
-            filterListsForUser()
-
+        .then(LocalAPIManager.getOnlyBasicLists)
+        .then(response => setCurrentAllLists(response))
     }
 
 
     useEffect(() => {
-        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response))
+        LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response)).then(filterListsForUser)
         LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response))
-
+        
     }, [])
 
     useEffect(() => {
-        filterListsForUser()
+        if (currentAllLists !== []){ 
+        filterListsForUser()}
     }, [currentAllLists])
 
 

@@ -8,7 +8,11 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 const CurrentList = props => {
     const deleteList = props.deleteList
     
-    
+    // const deleteList =(id) => {
+    //     LocalAPIManager.deleteMainListbyId(id).then(
+    //     LocalAPIManager.getSingleListById(id).then(resp => setCurrentAllList(resp)))
+        
+    // }   
 
     const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
     const [currentAllList, setCurrentAllList] = useState([])
@@ -40,13 +44,13 @@ const CurrentList = props => {
 
     useEffect(() => {
         findPodcastsOnList()
-        
     },[joinListsForPodcasts])
     
 
     useEffect(()=> {
+        if (currentAllList !== []){
         LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp))
-        setIsAvailable(false)
+        setIsAvailable(false)}  
     },[currentAllList])
     
 
