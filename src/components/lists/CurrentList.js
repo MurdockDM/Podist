@@ -6,11 +6,9 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 
 
 const CurrentList = props => {
-    // const deleteList = props.deleteList
+    const deleteList = props.deleteList
     
-    const deleteList = (id) => {
-        LocalAPIManager.deleteMainListbyId(id)
-    } 
+    
 
     const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
     const [currentAllList, setCurrentAllList] = useState([])
