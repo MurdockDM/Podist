@@ -16,7 +16,7 @@ export default {
         .then(response => response.json())
     },
     getGenres() {
-        return fetch(`https://listen-api.listennotes.com/api/v2/genres`, requestOptionsGet)
+        return fetch(`https://listen-api.listennotes.com/api/v2/genres?top_level_only=1`, requestOptionsGet)
         .then(resp => resp.json())
     },
     getPodcastByAPIId(id) {

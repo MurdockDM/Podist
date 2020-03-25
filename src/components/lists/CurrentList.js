@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react"
 import PodcastThumbNailCard from "../Podcasts/PodcastThumbNailCard"
-import { Button } from "@material-ui/core"
+import { Button, Grid } from "@material-ui/core"
 import "./CurrentList.css"
 import LocalAPIManager from "../modules/LocalAPIManager"
+import Container from "@material-ui/core/Container"
+import { makeStyles } from "@material-ui/core/styles"
+import { findByLabelText } from "@testing-library/react"
+
+const useStyles = makeStyles({
+    root: { 
+      minWidth: 15,
+      maxWidth: 200,
+      margin: 10,
+    },
+    media: {
+      maxWidth: '100%',  
+      paddingTop: '100%',
+    },
+    title: {
+      fontSize: 10,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+    mainContainer: {
+        flexDirection: "row",
+        border: '2px black solid',
+    }
+  });
+
 
 
 const CurrentList = props => {
     const deleteList = props.deleteList
-    
-    // const deleteList =(id) => {
-    //     LocalAPIManager.deleteMainListbyId(id).then(
-    //     LocalAPIManager.getSingleListById(id).then(resp => setCurrentAllList(resp)))
-        
-    // }   
+    const classes = useStyles()
 
     const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
     const [currentAllList, setCurrentAllList] = useState([])
@@ -56,31 +77,35 @@ const CurrentList = props => {
 
 
     return (
-        <>
-            <div className="homePage__currentList">
-                <div>
-                    <h4>{currentAllList.title}</h4>
-                </div>
-                <div>
-                    <p>{currentAllList.comments}</p>
-                </div>
-                <div>
-                    <button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</button>
-                    <button onClick={() => {deleteList(props.list.id)}} >Delete this list </button>
-                </div>
-                
-            </div>
+        <Container display="flex" >
+            <Grid lg={3} container className={classes.mainContainer}>
+                <Grid item>
+                    <div className={classes.root}>
+                        <div>
+                            <h4>{currentAllList.title}</h4>
+                        </div>
+                        <div>
+                            <p>{currentAllList.comments}</p>
+                        </div>
+                        <div>
+                            <button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</button>
+                            <button onClick={() => {deleteList(props.list.id)}} >Delete this list </button>
+                        </div>
+                        
+                    </div>
 
-            <div className="podcast__thumbnail__container">
-                {podcastsObjectsOnList.map(podcastListObject =>
-                    <PodcastThumbNailCard
-                        removeFromList={removeFromList}
-                        key={podcastListObject.id}
-                        podcast={podcastListObject}
-                        {...props} />)}
+                    <Grid className={classes.root}>
+                        {podcastsObjectsOnList.map(podcastListObject =>
+                            <PodcastThumbNailCard
+                                removeFromList={removeFromList}
+                                key={podcastListObject.id}
+                                podcast={podcastListObject}
+                                {...props} />)}
 
-            </div>
-        </>
+                    </Grid>
+                </Grid>
+            </Grid>        
+        </Container>
 
 
     )

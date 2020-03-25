@@ -3,7 +3,8 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 import CurrentList from "../lists/CurrentList"
 import HomePagePodcasts from "../Podcasts/HomePagePodcasts"
 import "./Home.css"
-import { Button } from "@material-ui/core"
+import { Button, Grid } from "@material-ui/core"
+import Container from "@material-ui/core/Container"
 
 const Home = props => {
 
@@ -41,11 +42,11 @@ const Home = props => {
 
 
     return (
-        <>
-            <div>
-                <div>
+        <Container>
+            <Grid>
+                <Grid>
                     <Button onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
-                </div>
+                </Grid>
 
                 <div className="userListsContainer">
                     {userOnlyLists.map((listObject) =>
@@ -60,8 +61,8 @@ const Home = props => {
                 <div className="otherListsContainer">
 
                 </div>
-            </div>
-            <div>
+            </Grid>
+            <Grid>
                 <div className="podcastsAvailableContainer">
                     {currentAvailablePodcasts.map(podcast =>
                         <HomePagePodcasts
@@ -69,12 +70,12 @@ const Home = props => {
                             key={podcast.id}
                             {...props} />)}
                 </div>
-            </div>
+            </Grid>
 
 
 
 
-        </>
+        </Container>
 
 
 
