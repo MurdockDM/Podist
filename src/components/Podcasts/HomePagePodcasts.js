@@ -71,7 +71,6 @@ const classes = useStyles();
       </CardContent>
       <CardActions>
         <Button onClick={() => {props.history.push(`/${podcastDetails.id}/podcasttolist`)}} color="primary">Add to a List</Button>
-        <Button disabled={isAvailable} color="secondary">Delete from database</Button>
       </CardActions>
     </Card>
   );
