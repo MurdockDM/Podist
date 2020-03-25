@@ -58,7 +58,7 @@ const PodcastEditToList = props => {
     },[currentAllLists])
 
     useEffect(() => {
-        if (newJoinList.listId !== "" ) {
+        if (newJoinList.listId !== "" && newJoinList.listId !== 0) {
             LocalAPIManager.postNewJoinList(newJoinList)
         }
     },[newJoinList])
