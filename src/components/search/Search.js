@@ -11,7 +11,7 @@ import Select from "@material-ui/core/Select"
 import InputLabel from "@material-ui/core/InputLabel"
 import { findByLabelText } from "@testing-library/react"
 import TextField from '@material-ui/core/TextField';
-
+import GenreOptions from "./GenreOptions"
 
     const useStyles = makeStyles(theme => ({
         root: {
@@ -47,6 +47,7 @@ const Search = (props) => {
     const [genreOptions, setGenreOptions] = useState([])
     const [isAvailable, setIsAvailable] = useState(false)
     const [selectedGenre, setSelectedGenre] = useState({genre: 0 })
+
     
 
     const classes = useStyles()
