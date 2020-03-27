@@ -1,25 +1,38 @@
 import React, { useState, useEffect } from "react"
-// import ExternalAPIManager from "../modules/ExternalAPIManager"
 import Button from "@material-ui/core/Button"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Textfield from "@material-ui/core/TextField"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
-// import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
-import Grid from "@material-ui/core/Grid"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
 import GenreOptions from "./GenreOptions"
 import PodcastCard from "../Podcasts/PodcastCard"
-import Container from "@material-ui/core/Container"
-import { FormControl, makeStyles } from "@material-ui/core"
+import { FormControl, makeStyles, Grid, Input } from "@material-ui/core"
+import Select from "@material-ui/core/Select"
+import InputLabel from "@material-ui/core/InputLabel"
+import { findByLabelText } from "@testing-library/react"
+import TextField from '@material-ui/core/TextField';
+
 
     const useStyles = makeStyles(theme => ({
+        root: {
+            border: '0.2rem grey ridge',
+            marginTop: '5%'
+        },
         formcontrol: {
             margin: theme.spacing(1),
-            minWidth: 240,
         },
         selectEmpty: {
             marginTop: theme,
+        },
+        searchResultsGrid: {
+            display: 'flex'
+
+        },
+        podcastsGrid: {
+            width: '23%',
+            display: 'flex',
+            flexDirection: 'row'
         }
     }))
 
@@ -34,19 +47,23 @@ const Search = (props) => {
     const [podcastResults, setPodcastResults] = useState([])
     const [genreOptions, setGenreOptions] = useState([])
     const [isAvailable, setIsAvailable] = useState(false)
+    const [selectedGenre, setSelectedGenre] = useState({genre: 0 })
+    
 
+    const classes = useStyles()
 
     const handleInputChange = event => {
         const stateToChange = { ...searchTerms };
         const textString = event.target.value
-        const arrayOfTextString = textString.split(" ")
-        if (arrayOfTextString.length === 1) {
-            
-            stateToChange[event.target.id] = arrayOfTextString.join("")
-        }else if (arrayOfTextString.length >= 2) {
-            stateToChange[event.target.id] = arrayOfTextString.join("%20")
-        }
+        const encodedSearch = encodeURI(textString)
+        stateToChange[event.target.id] = encodedSearch
         setSearchTerms(stateToChange)
+    }
+
+    const handleFocusSelect = (event) => {
+        const stateToChange = {...selectedGenre}
+        stateToChange.genre = parseInt(event.target.value)
+        setSelectedGenre(stateToChange)
     }
 
     const populateOptions = () => {
@@ -65,39 +82,51 @@ const Search = (props) => {
         })
     }
 
+    const searchGenres = (event) => {
+        event.preventDefault();
+        ExternalAPIManager.getBestPodcastsByGenre(selectedGenre.genre).then(resp => setPodcastResults(resp.podcasts))
+    }
+
     useEffect(() => {
         populateOptions();
     }, [])
 
     return (
-        <Container component="main" maxWidth="lg">
-            <FormControl>
-                <fieldset>
-                    <input type="search" onChange={handleInputChange} id="searchedWords" />
-                </fieldset>
-                <Button variant="contained" color="primary" onClick={handleSearch}>Search Podcasts</Button>
-            </FormControl>
-            <FormControl>
-                <fieldset>
-                    <select>
-                        {genreOptions.map(genre => 
-                            <GenreOptions 
+        <Grid >
+            <Grid container direction="row" justify='space-evenly' className={classes.root}>
+                <FormControl className={classes.formcontrol}>
+                    <Grid container direction='column' justify='center' item alignContent='center'>
+                        <Textfield variant='outlined' label='Find New Podcasts' autoFocus color='primary' type="search" onChange={handleInputChange} id="searchedWords" />
+                        <Button  variant="contained" color="primary" onClick={handleSearch}>Search</Button>
+                    </Grid>
+                </FormControl>
+                <FormControl>
+                    <Grid container direction='column' justify ='center' item alignContent='space-between'>
+                        <Select native variant='standard' label="select a genre" color='primary' onChange={handleFocusSelect} id="genreSelect" className={classes.formcontrol}>
+                            <option value='0' >Random</option>
+                            {genreOptions.map(genre => 
+                                <GenreOptions 
                                 key={genre.id}
                                 genre={genre}
                                 {...props}/>)}
-                    </select>
-                </fieldset>
-            </FormControl>
+                        </Select>
+                        <InputLabel htmlFor="genreSelect">Select a genre instead</InputLabel>
+                        <Button variant='contained' color='primary' onClick={searchGenres}>Search Genres</Button>
+                    </Grid>
+                </FormControl>
+            </Grid>
+            <Grid container>
+                <Grid container direction="row" justify="space-evenly">
+                    {podcastResults.map((podcast, index) => 
+                        <PodcastCard 
+                            key={index}
+                            podcast={podcast}
+                            {...props} />)}
 
-            <div className="searchedPodcasts__container">
-                {podcastResults.map((podcast, index) => 
-                    <PodcastCard 
-                        key={index}
-                        podcast={podcast}
-                        {...props} />)}
-
-            </div>
-        </Container>
+                </Grid>
+                
+            </Grid>    
+        </Grid>
     )
 
 }

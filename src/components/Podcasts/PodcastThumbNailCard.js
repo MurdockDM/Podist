@@ -2,8 +2,23 @@ import React, { useState, useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import LocalAPIManager from "../modules/LocalAPIManager"
 import "./PodcastThumbNailCard.css"
+import { Card, makeStyles } from "@material-ui/core"
+
+
+const useStyles = makeStyles({
+    root: {
+        border: '1px solid black',
+        margin: '2%',
+        width: '95%'
+    }
+})
+
+
+
 
 const PodcastThumbNailCard = props => {
+
+    const classes = useStyles()
 
     const [podcastDetails, setPodcastDetails] = useState({
         id: "",
@@ -24,7 +39,7 @@ const PodcastThumbNailCard = props => {
 
     
     return (
-        <div className="podcastCard__thumbnail">
+        <Card className={classes.root}>
             <div className="podcastCard__thumbnail__content">
                 <picture>
                     <img src={podcastDetails.imageLink} alt="Podcast Imagery"></img>
@@ -34,7 +49,7 @@ const PodcastThumbNailCard = props => {
                 <p>Website:<a target="_blank" href={podcastDetails.link}>Go to Podcast Website</a></p>
                 <Button disabled={isAvailable} onClick={() => {props.removeFromList(props.podcast.id)}} color="secondary">Remove Podcast From List</Button>
             </div>
-        </div>
+        </Card>
 
 
     )

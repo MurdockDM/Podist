@@ -6,28 +6,30 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 import Container from "@material-ui/core/Container"
 import { makeStyles } from "@material-ui/core/styles"
 import { findByLabelText } from "@testing-library/react"
+import { borders } from '@material-ui/system';
 
 const useStyles = makeStyles({
-    root: { 
-      minWidth: 15,
-      maxWidth: 200,
-      margin: 10,
+    root: {
+        width: '29%',
+        height: '40%',
+        borderRadius: '1%',
+        border: '1px dotted black'
     },
     media: {
-      maxWidth: '100%',  
-      paddingTop: '100%',
+        maxWidth: '100%',
+        paddingTop: '100%',
     },
     title: {
-      fontSize: 10,
+        fontSize: 10,
     },
     pos: {
-      marginBottom: 12,
+        marginBottom: 12,
     },
     mainContainer: {
         flexDirection: "row",
         border: '2px black solid',
     }
-  });
+});
 
 
 
@@ -38,18 +40,18 @@ const CurrentList = props => {
     const [podcastsObjectsOnList, setPodcastsObjectsOnList] = useState([])
     const [currentAllList, setCurrentAllList] = useState([])
     const [joinListsForPodcasts, setJoinListsForPodcasts] = useState([])
-    
+
     const [isAvailable, setIsAvailable] = useState(true)
-    
-    
+
+
     const removeFromList = (id) => {
         LocalAPIManager.removePodcastFromListButNotDelete(id).then(() => {
             LocalAPIManager.getSingleListById(props.list.id).then(resp => setCurrentAllList(resp))
         })
     }
-    
-    
- 
+
+
+
     const findPodcastsOnList = () => {
         const filteredPodcasts = joinListsForPodcasts.filter(objectInArray => {
             return objectInArray.listId === props.list.id
@@ -59,52 +61,51 @@ const CurrentList = props => {
 
     useEffect(() => {
         LocalAPIManager.getSingleListById(props.list.id)
-        .then(resp => setCurrentAllList(resp))
-        LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp) )
+            .then(resp => setCurrentAllList(resp))
+        LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp))
     }, [])
 
     useEffect(() => {
         findPodcastsOnList()
-    },[joinListsForPodcasts])
-    
+    }, [joinListsForPodcasts])
 
-    useEffect(()=> {
-        if (currentAllList !== []){
-        LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp))
-        setIsAvailable(false)}  
-    },[currentAllList])
-    
+
+    useEffect(() => {
+        if (currentAllList !== []) {
+            LocalAPIManager.getListsForPodcasts().then(resp => setJoinListsForPodcasts(resp))
+            setIsAvailable(false)
+        }
+    }, [currentAllList])
+
 
 
     return (
-        <Container display="flex" >
-            <Grid lg={3} container className={classes.mainContainer}>
-                <Grid item>
-                    <div className={classes.root}>
-                        <div>
-                            <h4>{currentAllList.title}</h4>
-                        </div>
-                        <div>
-                            <p>{currentAllList.comments}</p>
-                        </div>
-                        <div>
-                            <button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</button>
-                            <button onClick={() => {deleteList(props.list.id)}} >Delete this list </button>
-                        </div>
-                        
-                    </div>
-
-                    <Grid className={classes.root}>
-                        {podcastsObjectsOnList.map(podcastListObject =>
-                            <PodcastThumbNailCard
-                                removeFromList={removeFromList}
-                                key={podcastListObject.id}
-                                podcast={podcastListObject}
-                                {...props} />)}
-
+        <Container direction='column' className={classes.root} >
+            <Grid container>
+                <Grid justify="space-evenly" container spacing={3} >
+                    <Grid item>
+                        <h4>{currentAllList.title}</h4>
                     </Grid>
+                    <Grid item>
+                        <p>{currentAllList.comments}</p>
+                    </Grid>
+                    <Grid item container>
+                        <Button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</Button>
+                        <Button onClick={() => { deleteList(props.list.id) }} >Delete this list </Button>
+                    </Grid>
+
                 </Grid>
-            </Grid>        
+
+                <Grid container>
+                    {podcastsObjectsOnList.map(podcastListObject =>
+                        <PodcastThumbNailCard
+                            removeFromList={removeFromList}
+                            key={podcastListObject.id}
+                            podcast={podcastListObject}
+                            {...props} />)}
+
+                </Grid>
+            </Grid>
         </Container>
 
 

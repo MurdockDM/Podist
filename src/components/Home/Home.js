@@ -48,7 +48,7 @@ const Home = props => {
                     <Button onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
                 </Grid>
 
-                <div className="userListsContainer">
+                <Grid container direction='row'>
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
                             deleteList={deleteList}
@@ -57,7 +57,7 @@ const Home = props => {
                             {...props} />)}
 
 
-                </div>
+                </Grid>
                 <div className="otherListsContainer">
 
                 </div>

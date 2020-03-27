@@ -1,26 +1,61 @@
 import React, { useState, useEffect } from "react";
-import "./PodcastCard.css";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardActionArea, CardMedia, Typography, CardContent, Collapse, Grid } from "@material-ui/core";
 import LocalAPIManager from "../modules/LocalAPIManager";
+import { makeStyles } from "@material-ui/core/styles"
+import CardActions from "@material-ui/core/CardActions"
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+import CardHeader from '@material-ui/core/CardHeader';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '26%',
+        margin: '2%'
+    },
+    media: {
+        paddingTop: '100%',
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+}))
+
 
 
 
 
 const PodcastCard = props => {
 
-    const [podcastDetails, setPodcastDetails] = useState({APIId: "",
+    const classes = useStyles();
+
+    const [podcastDetails, setPodcastDetails] = useState({
+        APIId: "",
         title: "",
         description: "",
         link: "",
-        imageLink: ""})
+        imageLink: ""
+    })
 
-    const [savedPodcastsInAPI, setSavedPodcastsInAPI] = useState([])    
+    const [savedPodcastsInAPI, setSavedPodcastsInAPI] = useState([])
     const [podcastStoredId, setPodcastStoredId] = useState("")
     const [isAvailable, setIsAvailable] = useState(false)
-    const [buttonOff , setButtonOff] = useState(true)    
+    const [buttonOff, setButtonOff] = useState(true)
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     const storeCardData = () => {
-        const stateToChange = {...podcastDetails}
+        const stateToChange = { ...podcastDetails }
         stateToChange.APIId = props.podcast.id
         stateToChange.title = props.podcast.title_original
         stateToChange.description = props.podcast.description_original
@@ -32,13 +67,13 @@ const PodcastCard = props => {
 
     const checkStoredPodcasts = () => {
         const checkedPodcasts = savedPodcastsInAPI.filter(podcast => {
-           return podcast.APIId === podcastDetails.APIId
+            return podcast.APIId === podcastDetails.APIId
         })
         if (checkedPodcasts.length === 0 && podcastDetails.APIId !== "") {
             postToDatabase()
-        } else if (podcastDetails !== "" && checkedPodcasts.length >= 1) {alert("This podcast is already in the database")}
+        } else if (podcastDetails !== "" && checkedPodcasts.length >= 1) { alert("This podcast is already in the database") }
     }
-    
+
     const postToDatabase = () => {
         LocalAPIManager.postSinglePodcast(podcastDetails).then(response => {
             setPodcastStoredId(response.id)
@@ -49,24 +84,46 @@ const PodcastCard = props => {
     useEffect(() => {
         LocalAPIManager.getAllSavedPodcasts()
             .then(arrayOfPodcasts => {
-                setSavedPodcastsInAPI(arrayOfPodcasts)   
-        }).then(checkStoredPodcasts())
-        
-    },[podcastDetails])
+                setSavedPodcastsInAPI(arrayOfPodcasts)
+            }).then(checkStoredPodcasts())
+
+    }, [podcastDetails])
 
     return (
-        <div className="podcastCard">
-            <div className="podcastCard__content">
-                <picture>
-                    <img src={props.podcast.image} alt="Podcast Imagery"></img>
-                </picture>
-                <h4>Title <span className="podcastCard__content__title">{props.podcast.title_original}</span></h4>
-                <p>Description: {props.podcast.description_original}</p>
-                <p>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></p>
-                <Button disabled={isAvailable} onClick={() =>  storeCardData()} color="secondary">Save Podcast to add to a list</Button>
+        <Card className={classes.root} spacing={2} variant='outlined'>
+            <CardContent>
+                <Grid>
+                    <Typography variant='h5'>{props.podcast.title_original}</Typography>
+                    <Typography variant='h5'>{props.podcast.title}</Typography>
+                </Grid>
+                <Grid>
+                    <CardMedia className={classes.media}
+                        image={props.podcast.image}
+                        title="podcast imagery">
+                    </CardMedia>
+                    <CardActions>
+                        <IconButton
+                            className={clsx(classes.expand, {
+                                [classes.expandOpen]: expanded,
+                            })}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                        >
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+                    <Collapse in={expanded} timeout="auto">
+                        <Typography>{props.podcast.description_original}</Typography>
+                        <Typography>{props.podcast.description}</Typography>
+                        <Typography>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></Typography>
+                    </Collapse>
+                </Grid>
+            <CardActions>
+                <Button disabled={isAvailable} onClick={() => storeCardData()} color="secondary">Save Podcast to add to a list</Button>
                 <Button color="secondary" disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to Current List</Button>
-            </div>
-        </div>
+            </CardActions>
+            </CardContent>
+        </Card>
     )
 }
 
