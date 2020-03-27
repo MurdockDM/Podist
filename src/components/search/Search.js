@@ -5,7 +5,6 @@ import Textfield from "@material-ui/core/TextField"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
-import GenreOptions from "./GenreOptions"
 import PodcastCard from "../Podcasts/PodcastCard"
 import { FormControl, makeStyles, Grid, Input } from "@material-ui/core"
 import Select from "@material-ui/core/Select"
@@ -127,6 +126,7 @@ const Search = (props) => {
                 
             </Grid>    
         </Grid>
+
     )
 
 }

@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 
 
 const CurrentList = props => {
+  
     const deleteList = props.deleteList
     const classes = useStyles()
 
