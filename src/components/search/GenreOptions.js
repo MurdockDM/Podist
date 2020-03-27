@@ -4,7 +4,7 @@ import React from "react"
 
 const GenreOptions = props => {
     return(
-    <option >{props.genre.name}</option>
+    <option value={props.genre.id} >{props.genre.name}</option>
     )
 }
 

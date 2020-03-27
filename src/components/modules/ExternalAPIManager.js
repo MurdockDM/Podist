@@ -16,8 +16,12 @@ export default {
         .then(response => response.json())
     },
     getGenres() {
-        return fetch(`https://listen-api.listennotes.com/api/v2/genres`, requestOptionsGet)
+        return fetch(`https://listen-api.listennotes.com/api/v2/genres?top_level_only=1`, requestOptionsGet)
         .then(resp => resp.json())
+    },
+    getBestPodcastsByGenre(genreId) {
+        return fetch(`https://listen-api.listennotes.com/api/v2/best_podcasts?genre_id=${genreId}&region=us&safe_mode=0`, requestOptionsGet)
+        .then(response => response.json())
     },
     getPodcastByAPIId(id) {
         return fetch(`https://listen-api.listennotes.com/api/v2/podcasts/${id}?sort=recent_first`, requestOptionsGet)

@@ -5,10 +5,11 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import Textfield from "@material-ui/core/TextField"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
-// import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Grid from "@material-ui/core/Grid"
 import LoginManager from "../modules/LoginManager"
 import Link from "@material-ui/core/Link"
+import { Container } from "@material-ui/core"
+import TextField from '@material-ui/core/TextField'
 
 
 const Login = props => {
@@ -39,22 +40,43 @@ const Login = props => {
     }
 
     return (
-        <form>
-            <fieldset>
-                <h3>Please sign in</h3>
-                <div className="formBox">
-                    <input onChange={handleFieldChange} type="email" id="email" placeholder="Email address" required="" autoFocus="" />
-                    <label htmlFor="inputEmail">Email address</label>
-
-                    <input onChange={handleFieldChange} type="text" id="userName" placeholder="UserName" required="" />
-                    <label htmlFor="inputUserName">User Name</label>
-                </div>
-                <Button onClick={handleLogin} type="submit">Login</Button>
-            </fieldset>
+        <Container justify='center' component='main' maxWidth='xs'>
+            <Grid justify='center' direction='column' container>
+                <Grid container justify='center' item xs={8}>
+                    <Typography variant='h5'>Please Sign in</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <TextField
+                        onChange={handleFieldChange}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    <Textfield
+                        onChange={handleFieldChange}
+                        variant='outlined'
+                        margin='normal'
+                        required
+                        fullWidth
+                        id='userName'
+                        label='User Name'
+                        name='userName'
+                        autoComplete='user name'/>
+                </Grid>
+                <Grid item xs={8}>
+                    <Button fullWidth variant='contained' color='primary' onClick={handleLogin} type="submit">Login</Button>
+                </Grid>
+            </Grid>
             <Link href={`/newuser`} >
                 Need to sign up for a new account?
             </Link>
-        </form>
+        </Container>
     );
 };
 
