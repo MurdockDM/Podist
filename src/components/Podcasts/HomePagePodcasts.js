@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Icon } from '@material-ui/core';
 import { boxShadow } from '@material-ui/system';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import shadows from '@material-ui/core/styles/shadows';
 
 
 const useStyles = makeStyles({
@@ -15,10 +17,13 @@ const useStyles = makeStyles({
     minWidth: 15,
     maxWidth: 200,
     margin: 10,
+    xs: 12,
+    boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)' 
   },
   media: {
     maxWidth: '100%',  
     paddingTop: '100%',
+    height: 'auto'
   },
   title: {
     fontSize: 10,
@@ -41,7 +46,8 @@ const classes = useStyles();
     title: "",
     description: "",
     link: "",
-    imageLink: ""
+    imageLink: "",
+    thumbnail: ""
   })
 
   useEffect(()=> {
@@ -59,7 +65,7 @@ const classes = useStyles();
         <CardMedia
             src="image"
             className={classes.media}
-            image={podcastDetails.imageLink}
+            image={podcastDetails.thumbnail}
             title="podcast imagery"
         />
         <Typography variant="h5" component="h4">
@@ -70,7 +76,7 @@ const classes = useStyles();
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => {props.history.push(`/${podcastDetails.id}/podcasttolist`)}} color="primary">Add to a List</Button>
+        <Button onClick={() => {props.history.push(`/${podcastDetails.id}/podcasttolist`)}} color="primary"><AddBoxIcon></AddBoxIcon>Add to a List</Button>
       </CardActions>
     </Card>
   );

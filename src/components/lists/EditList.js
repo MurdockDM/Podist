@@ -19,7 +19,7 @@ const EditList = (props) => {
     
     const postEditedList = () => {
         LocalAPIManager.updateList(currentListDetails)
-        .then(setIsAvailable(true)).then(alert("Edits saved"))
+        .then(setIsAvailable(true)).then(alert("Edits saved")).then(props.history.push('/home'))
     }
 
     useEffect(() => {

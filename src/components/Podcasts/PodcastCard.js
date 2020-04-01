@@ -11,7 +11,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 const useStyles = makeStyles(theme => ({
     root: {
         width: '26%',
-        margin: '2%'
+        margin: '2%',
+        boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)'
     },
     media: {
         paddingTop: '100%',
@@ -41,7 +42,8 @@ const PodcastCard = props => {
         title: "",
         description: "",
         link: "",
-        imageLink: ""
+        imageLink: "",
+        thumbnail: ""
     })
 
     const [savedPodcastsInAPI, setSavedPodcastsInAPI] = useState([])
@@ -61,6 +63,7 @@ const PodcastCard = props => {
         stateToChange.description = props.podcast.description_original
         stateToChange.link = props.podcast.website
         stateToChange.imageLink = props.podcast.image
+        stateToChange.thumbnail = props.podcast.thumbnail
         setPodcastDetails(stateToChange)
         setIsAvailable(true)
     }
