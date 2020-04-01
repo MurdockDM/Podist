@@ -7,13 +7,17 @@ import Container from "@material-ui/core/Container"
 import { makeStyles } from "@material-ui/core/styles"
 import { findByLabelText } from "@testing-library/react"
 import { borders } from '@material-ui/system';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 
 const useStyles = makeStyles({
     root: {
         width: '29%',
         height: '40%',
         borderRadius: '1%',
-        border: '1px dotted black'
+        border: '1px dotted black',
+        xs: 12,
+        boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)'
     },
     media: {
         maxWidth: '100%',
@@ -28,6 +32,9 @@ const useStyles = makeStyles({
     mainContainer: {
         flexDirection: "row",
         border: '2px black solid',
+    },
+    listButtons: {
+        margin: '1rem'
     }
 });
 
@@ -90,9 +97,9 @@ const CurrentList = props => {
                     <Grid item>
                         <p>{currentAllList.comments}</p>
                     </Grid>
-                    <Grid item container>
-                        <Button onClick={() => (props.history.push(`/${props.list.id}/editlist`))}>Edit List Details</Button>
-                        <Button onClick={() => { deleteList(props.list.id) }} >Delete this list </Button>
+                    <Grid item container direction='row'>
+                        <Button color='primary' variant='outlined' className={classes.listButtons} onClick={() => (props.history.push(`/${props.list.id}/editlist`))}><EditRoundedIcon></EditRoundedIcon>Edit List Details</Button>
+                        <Button color='secondary' variant='outlined' className={classes.listButtons} onClick={() => { deleteList(props.list.id) }} ><DeleteForeverRoundedIcon></DeleteForeverRoundedIcon>Delete this list </Button>
                     </Grid>
 
                 </Grid>

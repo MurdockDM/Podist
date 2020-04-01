@@ -3,10 +3,23 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 import CurrentList from "../lists/CurrentList"
 import HomePagePodcasts from "../Podcasts/HomePagePodcasts"
 import "./Home.css"
-import { Button, Grid } from "@material-ui/core"
+import { Button, Grid, makeStyles } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 
+
+const useStyles = makeStyles({
+    root:{
+
+    },
+    listButton: {
+        margin: '2rem 0 2rem 0'
+    }
+})
+
+
 const Home = props => {
+
+    const classes = useStyles()
 
     const [currentAvailablePodcasts, setCurrentAvailablePodcasts] = useState([])
     const [currentAllLists, setCurrentAllLists] = useState([])
@@ -44,11 +57,11 @@ const Home = props => {
     return (
         <Container>
             <Grid>
-                <Grid>
-                    <Button onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
+                <Grid container item justify='center'>
+                    <Button className={classes.listButton} onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
                 </Grid>
 
-                <Grid container direction='row'>
+                <Grid item xs={12} container direction='row' wrap='wrap'>
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
                             deleteList={deleteList}

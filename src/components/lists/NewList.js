@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from "react"
 import PodcastThumbNailCard from "../Podcasts/PodcastThumbNailCard"
-import ExternalAPIManager from "../modules/ExternalAPIManager"
 import LocalAPIManager from "../modules/LocalAPIManager"
 import Button from "@material-ui/core/Button"
-
-
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
+import { TextField } from "@material-ui/core"
 
 
 const NewList = props => {
@@ -27,19 +27,19 @@ const NewList = props => {
 
 
     return (
-        <>
-          <form>
-              <h2>Please add a title and any comments about the list</h2>
-              <fieldset>
-                  <div className="listInfo">  
-                    <input type="text" onChange={handleFieldChange} id="title" placeholder="Title"></input>
-                    <input type="textarea" onChange={handleFieldChange} id="comments" placeholder="Comments"></input>
-                  </div>
-                  <Button disabled={isAvailable} onClick={()=> {postNewList()}} >Save New List</Button>
-              </fieldset>
-          </form>
+        <Grid container justify='center' alignContent='center'>
+          <Grid container direction='column' xs={12} sm={6} item>
+              <Typography variant='h6'>Please add a title and any comments about the list</Typography>
+              <Grid>
+                  <Grid className="listInfo">  
+                    <TextField margin='normal' required fullWidth label='Title' autoFocus variant='outlined' onChange={handleFieldChange} id="title"></TextField>
+                    <TextField margin='normal' required fullWidth label='Comments'  variant='outlined' onChange={handleFieldChange} id="comments"></TextField>
+                  </Grid>
+                  <Button variant='contained' color='primary' disabled={isAvailable} onClick={()=> {postNewList()}} >Save New List</Button>
+              </Grid>
+          </Grid>
         
-        </>
+        </Grid>
     )
 
 }
