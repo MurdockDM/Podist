@@ -1,19 +1,28 @@
 import React, { useState } from "react"
-import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
-import CssBaseline from "@material-ui/core/CssBaseline"
 import Textfield from "@material-ui/core/TextField"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import LoginManager from "../modules/LoginManager"
 import Link from "@material-ui/core/Link"
-import { Container } from "@material-ui/core"
+import { Container, makeStyles } from "@material-ui/core"
 import TextField from '@material-ui/core/TextField'
 
 
+const useStyles = makeStyles({
+    root:{
+
+    },
+    loginTitle:{
+        margin: '10%'
+    }
+})
+
 const Login = props => {
     const [credentials, setCredentials] = useState({ id: "", email: "", userName: "" })
+    const classes = useStyles()
+
+
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...credentials };
@@ -42,10 +51,10 @@ const Login = props => {
     return (
         <Container justify='center' component='main' maxWidth='xs'>
             <Grid justify='center' direction='column' container>
-                <Grid container justify='center' item xs={8}>
-                    <Typography variant='h5'>Please Sign in</Typography>
+                <Grid container justify='center' item xs={12}>
+                    <Typography className={classes.loginTitle} variant='h5'>Please Sign in</Typography>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container justify='center' item xs={12}>
                     <TextField
                         onChange={handleFieldChange}
                         variant="outlined"
@@ -69,7 +78,7 @@ const Login = props => {
                         name='userName'
                         autoComplete='user name'/>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container item xs={12}>
                     <Button fullWidth variant='contained' color='primary' onClick={handleLogin} type="submit">Login</Button>
                 </Grid>
             </Grid>

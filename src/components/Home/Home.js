@@ -3,16 +3,27 @@ import LocalAPIManager from "../modules/LocalAPIManager"
 import CurrentList from "../lists/CurrentList"
 import HomePagePodcasts from "../Podcasts/HomePagePodcasts"
 import "./Home.css"
-import { Button, Grid, makeStyles } from "@material-ui/core"
+import { Button, Grid, makeStyles, Paper } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
-
+import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles({
     root:{
-
+        backgroundColor: '#eeeeee',
+        border: 'solid #7986cb',
+        borderRadius: '2%'
     },
     listButton: {
         margin: '2rem 0 2rem 0'
+    },
+    listsTitlePaper: {
+        margin: '2rem',
+        backgroundColor: '#7986cb'
+    },
+    listsTitle: {
+        color: '#fff',
+        margin: '1rem'
+
     }
 })
 
@@ -24,6 +35,7 @@ const Home = props => {
     const [currentAvailablePodcasts, setCurrentAvailablePodcasts] = useState([])
     const [currentAllLists, setCurrentAllLists] = useState([])
     const [userOnlyLists, setUserOnlyLists] = useState([])
+    const [otherUserLists, setOtherUserLists] = useState([])
 
     const currentUserId = JSON.parse(sessionStorage.getItem("userInfo"))
 
@@ -32,6 +44,13 @@ const Home = props => {
             return listObject.userId === parseInt(currentUserId.id)
         })    
     setUserOnlyLists(filteredLists)
+    }
+
+    const filterListsForNotUser = () => {
+        const filteredLists = currentAllLists.filter((listObject) => {
+            return listObject.userId !== parseInt(currentUserId.id)
+        })
+        setOtherUserLists(filteredLists)
     }
 
     const deleteList = (id) => {
@@ -49,45 +68,45 @@ const Home = props => {
 
     useEffect(() => {
         if (currentAllLists !== []){ 
-        filterListsForUser()}
+        filterListsForUser()
+        filterListsForNotUser()}
     }, [currentAllLists])
 
 
 
     return (
-        <Container>
-            <Grid>
+        <Container className={classes.root}>
+            <Grid container direction='column'>
                 <Grid container item justify='center'>
-                    <Button className={classes.listButton} onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
+                    <Button color='primary' variant='outlined' className={classes.listButton} onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
                 </Grid>
-
-                <Grid item xs={12} container direction='row' wrap='wrap'>
+                <Grid container justify='center' item>
+                    <Paper className={classes.listsTitlePaper}>
+                        <Typography className={classes.listsTitle} variant='h4'>Your lists</Typography>
+                    </Paper>
+                </Grid>    
+                <Grid item container direction='row' wrap='wrap'>
                     {userOnlyLists.map((listObject) =>
                         <CurrentList
                             deleteList={deleteList}
                             key={listObject.id}
                             list={listObject}
                             {...props} />)}
-
-
                 </Grid>
-                <div className="otherListsContainer">
-
-                </div>
+                <Grid container justify='center' item>
+                    <Paper className={classes.listsTitlePaper}>
+                        <Typography className={classes.listsTitle} variant='h5'>Other user lists</Typography>
+                    </Paper>
+                </Grid>    
+                <Grid item container direction='row' wrap='wrap'>
+                    {otherUserLists.map((listObject) =>
+                       <CurrentList
+                            key={listObject.id}
+                            list={listObject}
+                            {...props} />
+                            )}
+                </Grid>
             </Grid>
-            <Grid>
-                <div className="podcastsAvailableContainer">
-                    {currentAvailablePodcasts.map(podcast =>
-                        <HomePagePodcasts
-                            podcast={podcast}
-                            key={podcast.id}
-                            {...props} />)}
-                </div>
-            </Grid>
-
-
-
-
         </Container>
 
 

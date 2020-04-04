@@ -7,6 +7,7 @@ import Home from "./Home/Home"
 import PodcastEditToList from "./lists/PodcastEditToList"
 import NewUserForm from "./auth/NewUserForm"
 import EditList from "./lists/EditList"
+import PodcastGallery from "./gallery/PodcastGallery"
 
 const ApplicationViews = (props) => {
     const loggedInUser = props.loggedInUser
@@ -49,6 +50,10 @@ const ApplicationViews = (props) => {
             />
             <Route path="/:listId/editlist" render={props => {
                 return <EditList listId={parseInt(props.match.params.listId)} loggedInUser={loggedInUser} setAsUser={setAsUser} {...props} />
+            }}
+            />
+            <Route path="/gallery" render={props => {
+                return <PodcastGallery loggedInUser={loggedInUser} {...props} />
             }}
             />
 

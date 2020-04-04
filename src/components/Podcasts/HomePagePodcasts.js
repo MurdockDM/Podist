@@ -6,10 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Icon } from '@material-ui/core';
-import { boxShadow } from '@material-ui/system';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import shadows from '@material-ui/core/styles/shadows';
+
 
 
 const useStyles = makeStyles({
