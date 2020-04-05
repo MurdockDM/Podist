@@ -1,4 +1,4 @@
-import React from "react"
+
 import ExternalAPIKey from "./ExternalAPIKey"
 
 var myHeaders = new Headers();
