@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, CardActionArea, CardMedia, Typography, CardContent, Collapse, Grid } from "@material-ui/core";
+import { Button, Card, CardMedia, Typography, CardContent, Collapse, Grid } from "@material-ui/core";
 import LocalAPIManager from "../modules/LocalAPIManager";
 import { makeStyles } from "@material-ui/core/styles"
 import CardActions from "@material-ui/core/CardActions"
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
-import CardHeader from '@material-ui/core/CardHeader';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '26%',
         margin: '2%',
+        border: '1px solid #1565c0',
         boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)'
     },
     media: {
@@ -27,6 +28,26 @@ const useStyles = makeStyles(theme => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
+    addDatabaseButton: {
+        background: 'linear-gradient(45deg, #1565c0 10%, #42a5f5 30%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'black',
+        fontWeight: 500,
+        height: 48,
+        padding: '0 30px',
+    },
+    addToListButton: {
+        background: 'linear-gradient(45deg, #1565c0 10%, #42a5f5 30%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'black',
+        fontWeight: 500,
+        height: 48,
+        padding: '0 30px',
+    }
 }))
 
 
@@ -118,12 +139,12 @@ const PodcastCard = props => {
                     <Collapse in={expanded} timeout="auto">
                         <Typography>{props.podcast.description_original}</Typography>
                         <Typography>{props.podcast.description}</Typography>
-                        <Typography>Website:<a target="_blank" href={props.podcast.website}>Go to Podcast Website</a></Typography>
+                        <Typography>Website:<a target="_blank" rel='noopener noreferrer' href={props.podcast.website}>Go to Podcast Website</a></Typography>
                     </Collapse>
                 </Grid>
             <CardActions>
-                <Button disabled={isAvailable} onClick={() => storeCardData()} color="secondary">Save Podcast to add to a list</Button>
-                <Button color="secondary" disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to Current List</Button>
+                <Button className={classes.addDatabaseButton} disabled={isAvailable} onClick={() => storeCardData()} >Save Podcast</Button>
+                <Button className={classes.addToListButton} disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to a List</Button>
             </CardActions>
             </CardContent>
         </Card>

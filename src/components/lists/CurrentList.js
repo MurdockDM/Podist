@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
     root: {
-        width: '20%',
-        height: '20%',
+        width: '100%',
+        height: '5%',
         borderRadius: '1%',
         border: '1px dotted black',
         xs: 12,
@@ -20,14 +20,19 @@ const useStyles = makeStyles({
         margin: '1.5rem',
         padding: '1rem',
         backgroundColor: '#fafafa'
-    
+
     },
     media: {
         maxWidth: '100%',
         paddingTop: '100%',
     },
+    cardHeader: {
+        border: '4px solid #1565c0',
+        borderRadius: '5%',
+        marginBottom: '3%'
+    },
     title: {
-        fontSize: 10,
+        fontSize: '1rem',
     },
     pos: {
         marginBottom: 12,
@@ -38,13 +43,37 @@ const useStyles = makeStyles({
     },
     listButtons: {
         margin: '1rem'
+    },
+    comments: {
+        justifyContent: 'center'
+    },
+    editButton: {
+        background: 'linear-gradient(45deg, #1565c0 10%, #42a5f5 30%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'black',
+        fontWeight: 500,
+        height: 36,
+        padding: '0 30px',
+    },
+    deleteButton: {
+        background: 'linear-gradient(45deg, #c62828 10%, #ef5350 30%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'black',
+        fontWeight: 500,
+        height: 36,
+        padding: '0 30px',
     }
+
 });
 
 
 
 const CurrentList = props => {
-  
+
     const deleteList = props.deleteList
     const classes = useStyles()
     const currentUserId = JSON.parse(sessionStorage.getItem("userInfo"))
@@ -64,7 +93,7 @@ const CurrentList = props => {
     }
 
     const handleUserCheck = () => {
-        if(parseInt(currentUserId.id) === props.list.userId){
+        if (parseInt(currentUserId.id) === props.list.userId) {
             setUserHasRights(true)
         }
     }
@@ -98,27 +127,21 @@ const CurrentList = props => {
 
 
     return (
-        <Grid direction='column' wrap='wrap' className={classes.root} >
+        <Grid container direction='row' wrap='wrap' className={classes.root} >
             <Grid container>
                 <Grid justify="space-evenly" container spacing={2} >
-                    <Grid wrap='wrap' container justify='space-around' item>
-                        <Typography variant='h4'>{currentAllList.title}</Typography>
-                    </Grid>
-                    <Grid container wrap='wrap' item>
-                        <Typography variant='h5'>{currentAllList.comments}</Typography>
-                    </Grid>
-                    <Grid item container direction='row'>
-                        {userHasRights
-                            ?<Button color='primary' variant='outlined' className={classes.listButtons} onClick={() => (props.history.push(`/${props.list.id}/editlist`))}><EditRoundedIcon></EditRoundedIcon>Edit List Details</Button>
-                            :null}
-                        {userHasRights    
-                            ?<Button color='secondary' variant='outlined' className={classes.listButtons} onClick={() => { deleteList(props.list.id) }} ><DeleteForeverRoundedIcon></DeleteForeverRoundedIcon>Delete this list </Button>
-                            :null}
+                    <Grid className={classes.cardHeader} justify='center' container>
+                        <Grid wrap='wrap' container justify='space-around' item>
+                            <Typography variant='h5'>{currentAllList.title}</Typography>
+                        </Grid>
+                        <Grid xs={6} container item>
+                            <Typography className={classes.comments} justify='center' variant='h6'>{currentAllList.comments}</Typography>
+                        </Grid>
                     </Grid>
 
                 </Grid>
 
-                <Grid container>
+                <Grid direction='row' wrap='wrap' container>
                     {podcastsObjectsOnList.map(podcastListObject =>
                         <PodcastThumbNailCard
                             userHasRights={userHasRights}
@@ -128,6 +151,14 @@ const CurrentList = props => {
                             {...props} />)}
 
                 </Grid>
+                    <Grid justify='space-around' item container direction='row'>
+                        {userHasRights
+                            ? <Button className={classes.editButton} variant='outlined' onClick={() => (props.history.push(`/${props.list.id}/editlist`))}><EditRoundedIcon></EditRoundedIcon>Edit List Details</Button>
+                            : null}
+                        {userHasRights
+                            ? <Button className={classes.deleteButton} variant='outlined' onClick={() => { deleteList(props.list.id) }} ><DeleteForeverRoundedIcon></DeleteForeverRoundedIcon>Delete this list </Button>
+                            : null}
+                    </Grid>
             </Grid>
         </Grid>
 

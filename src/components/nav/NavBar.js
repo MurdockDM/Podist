@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
-import Link from "@material-ui/core/Link";
 import { Breadcrumbs, Typography } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from '@material-ui/icons/Search';
@@ -15,16 +14,17 @@ import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 
 const useStyles = makeStyles({
     root: {
-
+        backgroundColor: '#eeeeee'
     },
     title: {
         padding: '1rem',
-        color: '#fff'
+        color: '#fff',
+        fontWeight: '700'
     },
     titlePaper: {
         marginBottom: '3rem',
         marginTop: '2rem',
-        backgroundColor: '#7986cb'
+        backgroundColor: '#1565c0'
     },
     loginLogout: {
         width: '95%',
@@ -34,7 +34,10 @@ const useStyles = makeStyles({
         marginLeft: '1rem'
     },
     breadCrumbs:{
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+    },
+    breadCrumbLinks: {
+       color: '#1565c0'
     }
 })
 
@@ -53,7 +56,7 @@ const NavBar = props => {
     const loggedInUser = props.loggedInUser
 
     return (
-        <Grid container justify='center'>
+        <Grid className={classes.root} container justify='center'>
             <Grid className={classes.loginLogout} container justify='flex-end'>
                 {loggedInUser
                     ? <Typography variant='h6'><NavLink to="/login" className="navlink" onClick={handleLogout}>Logout</NavLink></Typography>
@@ -72,11 +75,11 @@ const NavBar = props => {
             <Grid xs={12} item justify='center' container>
                 <Breadcrumbs className={classes.breadCrumbs} justify='center'>
                     {loggedInUser
-                        ? <Typography variant='h5'><NavLink className="navLink" to="/home"><HomeIcon fontSize='large'></HomeIcon>Home</NavLink></Typography>
+                        ? <Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/home"><HomeIcon fontSize='large'></HomeIcon>Home</NavLink></Typography>
                         : null}
-                    <Typography variant='h5'><NavLink className="navLink" to="/search"><SearchIcon fontSize='large'></SearchIcon>Search For New Podcasts</NavLink></Typography>
+                    <Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/search"><SearchIcon fontSize='large'></SearchIcon>Search For New Podcasts</NavLink></Typography>
                     {loggedInUser    
-                        ?<Typography variant='h5'><NavLink to="/gallery"><DashboardRoundedIcon></DashboardRoundedIcon>Gallery</NavLink></Typography>
+                        ?<Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/gallery"><DashboardRoundedIcon></DashboardRoundedIcon>Gallery</NavLink></Typography>
                         :null}
                 </Breadcrumbs>
             </Grid>

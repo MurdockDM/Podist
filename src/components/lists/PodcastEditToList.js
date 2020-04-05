@@ -70,7 +70,7 @@ const PodcastEditToList = props => {
         <Grid container justify='center' direction='column-reverse' wrap='wrap'>
             <Grid container direction='column' justify='center' item>
                 <Grid container justify='center' item>
-                    <Select variant='outlined' color='primary' native variant='standard' label='Select a Genre' onChange={handleFocusSelect}>
+                    <Select native label='Select a Genre' onChange={handleFocusSelect}>
                         <option variant='filled'>Select One</option>
                         {userOnlyLists.map((listObject) =>
                             <ListOptions
@@ -98,7 +98,7 @@ const PodcastEditToList = props => {
                         </picture>
                     </Grid>
                     <Grid container justify='center' item>   
-                        <p>Website:<a target="_blank" href={podcastDetails.link}>Go to Podcast Website</a></p>
+                        <p>Website:<a target="_blank" rel='noopener noreferrer'  href={podcastDetails.link}>Go to Podcast Website</a></p>
                     </Grid>
                 </Grid>
             </Grid>

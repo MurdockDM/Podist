@@ -8,6 +8,7 @@ import PodcastEditToList from "./lists/PodcastEditToList"
 import NewUserForm from "./auth/NewUserForm"
 import EditList from "./lists/EditList"
 import PodcastGallery from "./gallery/PodcastGallery"
+import EpisodesPage from "./episodes/EpisodesPage"
 
 const ApplicationViews = (props) => {
     const loggedInUser = props.loggedInUser
@@ -54,6 +55,10 @@ const ApplicationViews = (props) => {
             />
             <Route path="/gallery" render={props => {
                 return <PodcastGallery loggedInUser={loggedInUser} {...props} />
+            }}
+            />
+            <Route exact path="/:PodcastAPIId/episodes" render={props => {
+                return <EpisodesPage loggedInUser={loggedInUser} PodcastAPIID={props.match.params.PodcastAPIID} {...props} />
             }}
             />
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import HomePagePodcasts from '../Podcasts/HomePagePodcasts'
 import LocalAPIManager from '../modules/LocalAPIManager'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles, Card, CardMedia, CardContent, Typography, CardActionArea } from '@material-ui/core'
+import { makeStyles, Card, CardMedia, CardContent, Typography } from '@material-ui/core'
 import ExternalAPIManager from '../modules/ExternalAPIManager'
 import RedoIcon from '@material-ui/icons/Redo';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,11 +13,15 @@ import Paper from "@material-ui/core/Paper"
 const useStyles = makeStyles({
     root: {
         marginTop: '2rem',
-        backgroundColor: '#eeeeee'
+        backgroundColor: '#eeeeee',
+
     },
     card: {
         width: '28%',
-        marginTop: '2rem'
+        marginTop: '2rem',
+        border: '1px solid #1565c0',
+        boxShadow: "0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)"
+
     },
     cardMedia: {
         paddingTop: '100%'
@@ -31,11 +35,14 @@ const useStyles = makeStyles({
     },
     redoIcon: {
         width: '2rem',
-        height: 'auto'
+        height: 'auto',
+        color: 'white',
+        backgroundColor: '#1565c0'
     },
     paper: {
         margin: '3rem',
-        padding: '2rem'
+        padding: '2rem',
+        border: '1px solid #1565c0'
     }
 })
 
@@ -69,16 +76,15 @@ const PodcastGallery = (props) => {
                     <CardMedia
                         className={classes.cardMedia}
                         src='image'
-                        image={randomPodcastSpotlight.thumbnail}
-                        
+                        image={randomPodcastSpotlight.thumbnail}  
                     />
                     <CardContent>
                         <Typography variant='h6'>Podcast Title: {randomPodcastSpotlight.podcast_title}</Typography>
                         <Typography>{randomPodcastSpotlight.description}</Typography>
                     </CardContent>
                     <CardActions >
-                        <IconButton >
-                            <RedoIcon className={classes.redoIcon} onClick={() => {ExternalAPIManager.getRandomPodcastEpisode().then(resp => setRandomPodcastSpotlight(resp))}}></RedoIcon>
+                        <IconButton onClick={() => {ExternalAPIManager.getRandomPodcastEpisode().then(resp => setRandomPodcastSpotlight(resp))}} >
+                            <RedoIcon className={classes.redoIcon} ></RedoIcon>
                         </IconButton>
                     </CardActions>
                 </Card>
