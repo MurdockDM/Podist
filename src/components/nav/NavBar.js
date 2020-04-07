@@ -14,7 +14,9 @@ import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 
 const useStyles = makeStyles({
     root: {
-        backgroundColor: '#eeeeee'
+        backgroundColor: '#eeeeee',
+        borderBottom: '5px solid #1565c0',
+        marginBottom: '1rem'
     },
     title: {
         padding: '1rem',
@@ -79,7 +81,7 @@ const NavBar = props => {
                         : null}
                     <Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/search"><SearchIcon fontSize='large'></SearchIcon>Search For New Podcasts</NavLink></Typography>
                     {loggedInUser    
-                        ?<Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/gallery"><DashboardRoundedIcon></DashboardRoundedIcon>Gallery</NavLink></Typography>
+                        ?<Typography variant='h5'><NavLink className={classes.breadCrumbLinks} to="/gallery"><DashboardRoundedIcon fontSize='large'></DashboardRoundedIcon>Gallery</NavLink></Typography>
                         :null}
                 </Breadcrumbs>
             </Grid>

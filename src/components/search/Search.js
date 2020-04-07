@@ -3,15 +3,16 @@ import Button from "@material-ui/core/Button"
 import Textfield from "@material-ui/core/TextField"
 import ExternalAPIManager from "../modules/ExternalAPIManager"
 import PodcastCard from "../Podcasts/PodcastCard"
-import { FormControl, makeStyles, Grid } from "@material-ui/core"
+import { FormControl, makeStyles, Grid, Typography } from "@material-ui/core"
 import Select from "@material-ui/core/Select"
 import InputLabel from "@material-ui/core/InputLabel"
 import GenreOptions from "./GenreOptions"
 
 const useStyles = makeStyles(theme => ({
     root: {
-        border: '0.2rem grey ridge',
-        marginTop: '5%'
+        border: '0.2rem #1565c0 ridge',
+        marginTop: '5%',
+        
     },
     formcontrol: {
         margin: theme.spacing(1),
@@ -106,6 +107,9 @@ const Search = (props) => {
                         <Button className={classes.submitButtons} onClick={handleSearch}>Search</Button>
                     </Grid>
                 </FormControl>
+                <Grid>
+                    <Typography variant='h5'>Search by key words or by genres</Typography>
+                </Grid>
                 <FormControl>
                     <Grid container direction='column' justify='center' item alignContent='space-between'>
                         <Select native variant='standard' label="select a genre" color='primary' onChange={handleFocusSelect} id="genreSelect" className={classes.formcontrol}>

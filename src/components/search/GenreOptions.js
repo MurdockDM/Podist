@@ -3,8 +3,8 @@ import React from "react"
 
 
 const GenreOptions = props => {
-    return(
-    <option value={props.genre.id} >{props.genre.name}</option>
+    return (
+        <option value={props.genre.id} >{props.genre.name}</option>
     )
 }
 

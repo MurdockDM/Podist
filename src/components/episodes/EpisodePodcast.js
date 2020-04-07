@@ -29,14 +29,14 @@ const useStyles = makeStyles({
 
 const EpisodePodcast = (props) => {
 
-const classes = useStyles()
+    const classes = useStyles()
 
-return(    
-    <Paper className={classes.root}>
-        <Typography className={classes.label}>Episode Title</Typography>
-        <Typography className={classes.title} >{props.episode.title}</Typography>
-    </Paper>
-)
+    return (
+        <Paper className={classes.root}>
+            <Typography className={classes.label}>Episode Title</Typography>
+            <Typography className={classes.title} >{props.episode.title}</Typography>
+        </Paper>
+    )
 }
 
 export default EpisodePodcast
