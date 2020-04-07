@@ -11,7 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse'
-
+import Grid from '@material-ui/core/Grid'
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     height: 48,
     padding: '0 30px',
+    marginTop: '1rem'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -116,7 +118,10 @@ const HomePagePodcasts = (props) => {
         </Collapse>
       </CardActions>
       <CardActions>
-        <Button className={classes.button} onClick={() => { props.history.push(`/${podcastDetails.id}/podcasttolist`) }} color="primary"><AddBoxIcon fontSize='large'></AddBoxIcon>Add to a List</Button>
+        <Grid container direction='column'>
+          <Button className={classes.button} onClick={() => { props.history.push(`/${podcastDetails.id}/podcasttolist`) }}><AddBoxIcon fontSize='large'></AddBoxIcon>Add to a List</Button>
+          <Button className={classes.button} onClick={() => {props.history.push(`/${podcastDetails.APIId}/episodes`)}}><InfoIcon fontSize='large'></InfoIcon>Recent Episodes</Button>
+        </Grid>
       </CardActions>
     </Card>
   );
