@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         width: '100%',
         height: '5%',
         borderRadius: '1%',
-        border: '1px dotted black',
+        border: '3px solid #1565c0',
         xs: 12,
         boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)',
         margin: '1.5rem',
@@ -27,12 +27,14 @@ const useStyles = makeStyles({
         paddingTop: '100%',
     },
     cardHeader: {
-        border: '4px solid #1565c0',
-        borderRadius: '5%',
+        borderBottom: '3px solid #1565c0',
         marginBottom: '3%'
     },
     title: {
         fontSize: '1rem',
+    },
+    titleBox: {
+        marginBottom: '1rem'
     },
     pos: {
         marginBottom: 12,
@@ -131,7 +133,7 @@ const CurrentList = props => {
             <Grid container>
                 <Grid justify="space-evenly" container spacing={2} >
                     <Grid className={classes.cardHeader} justify='center' container>
-                        <Grid wrap='wrap' container justify='space-around' item>
+                        <Grid className={classes.titleBox} wrap='wrap' container justify='space-around' item>
                             <Typography variant='h5'>{currentAllList.title}</Typography>
                         </Grid>
                         <Grid xs={6} container item>
@@ -151,14 +153,14 @@ const CurrentList = props => {
                             {...props} />)}
 
                 </Grid>
-                    <Grid justify='space-around' item container direction='row'>
-                        {userHasRights
-                            ? <Button className={classes.editButton} variant='outlined' onClick={() => (props.history.push(`/${props.list.id}/editlist`))}><EditRoundedIcon></EditRoundedIcon>Edit List Details</Button>
-                            : null}
-                        {userHasRights
-                            ? <Button className={classes.deleteButton} variant='outlined' onClick={() => { deleteList(props.list.id) }} ><DeleteForeverRoundedIcon></DeleteForeverRoundedIcon>Delete this list </Button>
-                            : null}
-                    </Grid>
+                <Grid justify='space-around' item container direction='row'>
+                    {userHasRights
+                        ? <Button className={classes.editButton} variant='outlined' onClick={() => (props.history.push(`/${props.list.id}/editlist`))}><EditRoundedIcon></EditRoundedIcon>Edit List Details</Button>
+                        : null}
+                    {userHasRights
+                        ? <Button className={classes.deleteButton} variant='outlined' onClick={() => { deleteList(props.list.id) }} ><DeleteForeverRoundedIcon></DeleteForeverRoundedIcon>Delete this list </Button>
+                        : null}
+                </Grid>
             </Grid>
         </Grid>
 

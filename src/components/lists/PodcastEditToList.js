@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from "react"
 import LocalAPIManager from "../modules/LocalAPIManager"
 import ListOptions from "./ListOptions"
-import { Button, Grid } from "@material-ui/core"
+import { Button, Grid, makeStyles } from "@material-ui/core"
 import Typography from '@material-ui/core/Typography'
 import Select from '@material-ui/core/Select'
 
+const useStyles = makeStyles({
+    root: {
+
+    },
+    button: {
+        background: 'linear-gradient(45deg, #1565c0 30%, #42a5f5 90%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        marginTop: '2rem'
+    },
+    pictureContainer: {
+        marginTop: '2rem',
+        marginBottom: '1rem'
+    }
+})
+
 const PodcastEditToList = props => {
 
+    const classes = useStyles()
     const [podcastDetails, setPodcastDetails] = useState({
         id: "",
         APIId: "",
@@ -82,7 +103,7 @@ const PodcastEditToList = props => {
                     </Select>
                 </Grid>
                 <Grid container justify='center' item>
-                    <Button onClick={builtNewJoinList}>Add to list</Button>
+                    <Button className={classes.button} onClick={builtNewJoinList}>Add to list</Button>
                 </Grid>
             </Grid>
             <Grid container justify='center' item>
@@ -92,13 +113,13 @@ const PodcastEditToList = props => {
                             Which list do you want to add this podcast to?
                         </Typography>
                     </Grid>
-                    <Grid container justify='center' item>
+                    <Grid className={classes.pictureContainer} container justify='center' item>
                         <picture>
                             <img src={podcastDetails.imageLink} alt="Podcast Imagery"></img>
                         </picture>
                     </Grid>
-                    <Grid container justify='center' item>   
-                        <p>Website:<a target="_blank" rel='noopener noreferrer'  href={podcastDetails.link}>Go to Podcast Website</a></p>
+                    <Grid container justify='center' item>
+                        <p>Website:<a target="_blank" rel='noopener noreferrer' href={podcastDetails.link}>Go to Podcast Website</a></p>
                     </Grid>
                 </Grid>
             </Grid>

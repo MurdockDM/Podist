@@ -20,6 +20,7 @@ const useStyles = makeStyles({
         width: '28%',
         marginTop: '2rem',
         border: '1px solid #1565c0',
+        padding: '1rem',
         boxShadow: "0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)"
 
     },
@@ -30,8 +31,8 @@ const useStyles = makeStyles({
         margintop: '1rem',
         marginBottom: '1rem'
     },
-    cardActionsBottom:{
-    
+    cardActionsBottom: {
+
     },
     redoIcon: {
         width: '2rem',
@@ -53,10 +54,10 @@ const PodcastGallery = (props) => {
 
     const [currentPodcasts, setCurrentPodcasts] = useState([])
     const [randomPodcastSpotlight, setRandomPodcastSpotlight] = useState({})
-    
+
     useEffect(() => {
         window.scrollTo(0, 235);
-    },[randomPodcastSpotlight])
+    }, [randomPodcastSpotlight])
 
     useEffect(() => {
         LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentPodcasts(response))
@@ -68,7 +69,7 @@ const PodcastGallery = (props) => {
             <Grid justify='center' item container>
                 <Card className={classes.card}>
                     <Grid container justify='center' item>
-                        <Typography  className={classes.cardTitle} >Discover Random Podcast Episodes</Typography>
+                        <Typography className={classes.cardTitle} >Discover Random Podcast Episodes</Typography>
                     </Grid>
                     <Grid>
                         <Typography variant='h5'>Episode Title: {randomPodcastSpotlight.title}</Typography>
@@ -76,16 +77,17 @@ const PodcastGallery = (props) => {
                     <CardMedia
                         className={classes.cardMedia}
                         src='image'
-                        image={randomPodcastSpotlight.thumbnail}  
+                        image={randomPodcastSpotlight.thumbnail}
                     />
                     <CardContent>
                         <Typography variant='h6'>Podcast Title: {randomPodcastSpotlight.podcast_title}</Typography>
                         <Typography>{randomPodcastSpotlight.description}</Typography>
                     </CardContent>
                     <CardActions >
-                        <IconButton onClick={() => {ExternalAPIManager.getRandomPodcastEpisode().then(resp => setRandomPodcastSpotlight(resp))}} >
+                        <IconButton onClick={() => { ExternalAPIManager.getRandomPodcastEpisode().then(resp => setRandomPodcastSpotlight(resp)) }} >
                             <RedoIcon className={classes.redoIcon} ></RedoIcon>
                         </IconButton>
+                        <Typography variant='h6'>Try another random episode</Typography>
                     </CardActions>
                 </Card>
             </Grid>

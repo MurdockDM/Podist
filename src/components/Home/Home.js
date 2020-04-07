@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles({
-    root:{
+    root: {
         backgroundColor: '#eeeeee',
         border: 'solid #1565c0',
         borderRadius: '2%'
@@ -50,8 +50,8 @@ const Home = props => {
     const filterListsForUser = () => {
         const filteredLists = currentAllLists.filter((listObject) => {
             return listObject.userId === parseInt(currentUserId.id)
-        })    
-    setUserOnlyLists(filteredLists)
+        })
+        setUserOnlyLists(filteredLists)
     }
 
     const filterListsForNotUser = () => {
@@ -63,21 +63,22 @@ const Home = props => {
 
     const deleteList = (id) => {
         LocalAPIManager.deleteMainListbyId(id)
-        .then(LocalAPIManager.getOnlyBasicLists)
-        .then(response => setCurrentAllLists(response))
+            .then(LocalAPIManager.getOnlyBasicLists)
+            .then(response => setCurrentAllLists(response))
     }
 
 
     useEffect(() => {
         LocalAPIManager.getOnlyBasicLists().then(response => setCurrentAllLists(response)).then(filterListsForUser)
         LocalAPIManager.getAllSavedPodcasts().then(response => setCurrentAvailablePodcasts(response))
-        
+
     }, [])
 
     useEffect(() => {
-        if (currentAllLists !== []){ 
-        filterListsForUser()
-        filterListsForNotUser()}
+        if (currentAllLists !== []) {
+            filterListsForUser()
+            filterListsForNotUser()
+        }
     }, [currentAllLists])
 
 
@@ -89,7 +90,7 @@ const Home = props => {
                     <Paper className={classes.listsTitlePaper}>
                         <Typography className={classes.listsTitle} variant='h4'>Your lists</Typography>
                     </Paper>
-                </Grid>    
+                </Grid>
                 <Grid container item justify='center'>
                     <Button className={classes.listButton} onClick={() => props.history.push(`/newlist`)}>Create A New List</Button>
                 </Grid>
@@ -105,14 +106,14 @@ const Home = props => {
                     <Paper className={classes.listsTitlePaper}>
                         <Typography className={classes.listsTitle} variant='h5'>Other user lists</Typography>
                     </Paper>
-                </Grid>    
+                </Grid>
                 <Grid item container direction='column' wrap='wrap'>
                     {otherUserLists.map((listObject) =>
-                       <CurrentList
+                        <CurrentList
                             key={listObject.id}
                             list={listObject}
                             {...props} />
-                            )}
+                    )}
                 </Grid>
             </Grid>
         </Container>

@@ -10,10 +10,10 @@ import TextField from '@material-ui/core/TextField'
 
 
 const useStyles = makeStyles({
-    root:{
+    root: {
 
     },
-    loginTitle:{
+    loginTitle: {
         margin: '10%'
     }
 })
@@ -76,7 +76,7 @@ const Login = props => {
                         id='userName'
                         label='User Name'
                         name='userName'
-                        autoComplete='user name'/>
+                        autoComplete='user name' />
                 </Grid>
                 <Grid container item xs={12}>
                     <Button fullWidth variant='contained' color='primary' onClick={handleLogin} type="submit">Login</Button>

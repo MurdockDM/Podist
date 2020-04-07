@@ -5,7 +5,7 @@ import { Grid, TextField, Typography, makeStyles } from "@material-ui/core"
 
 
 const useStyles = makeStyles({
-    root:{
+    root: {
         backgroundColor: '#eeeeee'
     },
     title: {

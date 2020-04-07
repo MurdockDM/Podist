@@ -142,10 +142,10 @@ const PodcastCard = props => {
                         <Typography>Website:<a target="_blank" rel='noopener noreferrer' href={props.podcast.website}>Go to Podcast Website</a></Typography>
                     </Collapse>
                 </Grid>
-            <CardActions>
-                <Button className={classes.addDatabaseButton} disabled={isAvailable} onClick={() => storeCardData()} >Save Podcast</Button>
-                <Button className={classes.addToListButton} disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to a List</Button>
-            </CardActions>
+                <CardActions>
+                    <Button className={classes.addDatabaseButton} disabled={isAvailable} onClick={() => storeCardData()} >Save Podcast</Button>
+                    <Button className={classes.addToListButton} disabled={buttonOff} onClick={() => props.history.push(`/${podcastStoredId}/podcasttolist`)}>Add to a List</Button>
+                </CardActions>
             </CardContent>
         </Card>
     )

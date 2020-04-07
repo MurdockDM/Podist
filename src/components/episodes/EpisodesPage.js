@@ -46,17 +46,17 @@ const EpisodesPage = (props) => {
 
     const classes = useStyles()
 
-    const [podcastData, setPodcastData] = useState({episodes:[]})
-    
+    const [podcastData, setPodcastData] = useState({ episodes: [] })
+
 
     useEffect(() => {
         ExternalAPIManager.getPodcastByAPIId(props.match.params.PodcastAPIId).then(resp => { setPodcastData(resp) })
-    
+
     }, [])
 
     useEffect(() => {
         console.log(podcastData.episodes)
-    },[podcastData])
+    }, [podcastData])
 
     return (
         <Grid justify='center' container>
@@ -81,8 +81,8 @@ const EpisodesPage = (props) => {
                 </Card>
             </Grid>
             <Grid xs={8} container >
-                {podcastData.episodes.map(episodeObject => 
-                    <EpisodePodcast 
+                {podcastData.episodes.map(episodeObject =>
+                    <EpisodePodcast
                         key={episodeObject.id}
                         episode={episodeObject} />)}
             </Grid>
