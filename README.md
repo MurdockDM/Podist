@@ -1,4 +1,5 @@
 # Podist
+  ![Home Screen of Podist](/src/photos/HomeScreen.png)
 
 An app for searching and organizing podcasts into list formats so that users can
 more easily recommend podcasts to their friends.
@@ -81,6 +82,7 @@ more easily recommend podcasts to their friends.
 ## Using the app
 
 ### Home Page
+![Podcasts in a list](/src/photos/ListSelectionsHomePage.png)
 
 - The main page for the user is the Home page. This contains lists of the user as well as lists of other users.
 
@@ -88,9 +90,12 @@ more easily recommend podcasts to their friends.
 
 - The user can also edit lists and delete lists that belong to that user using buttons found at the bottom of each list.
 
-- The user can add podcasts to any list that they have created by going to one of the podcast resource pages.
+- The user can add podcasts to any list that they have created by going to one
+  of the podcast resource pages.
+
 
 ### Search for New Podcasts
+![Search Results for "javascript"](/src/photos/SearchPageResults.png)
 
 - This page can be reached by the navigation at the top of the app. It allows the user to search for podcasts using the Listen Notes API.
 
@@ -104,11 +109,18 @@ more easily recommend podcasts to their friends.
 
 * The user can then add the podcast to a list using that button. This will take to user to a display of the podcast to be added and the user can use a dropdown select to choose which list to add the podcast to.
 
+
 ### Gallery
+![gallery of Podcasts saved by users](/src/photos/GalleryOfPodcasts.png)
 
 - This link has two main features. It contains all the podcasts saved by any user of the app and allows the user to also save any of those podcasts to a list.
   The other feature is a spotlight feature that shows a random podcast episode to help inspire the user to find new podcasts.
 
-- For the saved podcasts there is also a button on each podcasts named "Recent episodes". This allows the user to view the 10 most recent episode titles so that they can get a better feel for the topics of the podcast in general.
+- For the saved podcasts there is also a button on each podcasts named "Recent
+  episodes". This allows the user to view the 10 most recent episode titles so
+  that they can get a better feel for the topics of the podcast in general.
+
+  ![recent episodes page](/src/photos/RecentEpisodes.png)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
